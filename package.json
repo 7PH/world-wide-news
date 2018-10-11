@@ -1,29 +1,32 @@
 {
-    "name": "epfl-data-visualization-project",
-    "version": "0.0.0",
-    "private": true,
-    "description": "",
-    "main": "index.js",
-    "directories": {
-        "doc": "docs"
-    },
-    "scripts": {
-        "build": "echo \"@TODO\" && exit 1",
-        "start": "echo \"@TODO\" && exit 1",
-        "deploy": "echo \"@TODO\" && exit 1",
-        "test": "mocha test/test.js"
-    },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/7PH/EPFL-Data-Visualization-Project.git"
-    },
-    "author": "",
-    "license": "ISC",
-    "bugs": {
-        "url": "https://github.com/7PH/EPFL-Data-Visualization-Project/issues"
-    },
-    "homepage": "https://github.com/7PH/EPFL-Data-Visualization-Project#readme",
-    "devDependencies": {
-        "mocha": "^5.2.0"
-    }
+  "name": "epfl-data-visualization-project",
+  "version": "0.0.0",
+  "private": true,
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "build": "echo \"@TODO\" && exit 1",
+    "start": "echo \"@TODO\" && exit 1",
+    "deploy": "echo \"@TODO\" && exit 1",
+    "test": "mocha test/test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/7PH/EPFL-Data-Visualization-Project.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/7PH/EPFL-Data-Visualization-Project/issues"
+  },
+  "homepage": "https://github.com/7PH/EPFL-Data-Visualization-Project#readme",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-htmlmin": "^5.0.1",
+    "gulp-pug": "^4.0.1",
+    "mocha": "^5.2.0"
+  }
 }
