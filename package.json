@@ -8,7 +8,7 @@
     "doc": "docs"
   },
   "scripts": {
-    "build": "echo \"@TODO\" && exit 1",
+    "build": "gulp build",
     "start": "echo \"@TODO\" && exit 1",
     "deploy": "echo \"@TODO\" && exit 1",
     "test": "mocha test/test.js"
@@ -24,7 +24,7 @@
   },
   "homepage": "https://github.com/7PH/EPFL-Data-Visualization-Project#readme",
   "devDependencies": {
-    "gulp": "^3.9.1",
+    "gulp": "^4.0.0",
     "gulp-htmlmin": "^5.0.1",
     "gulp-pug": "^4.0.1",
     "mocha": "^5.2.0"

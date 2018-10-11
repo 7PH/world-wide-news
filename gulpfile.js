@@ -28,3 +28,5 @@ gulp.task("copy-views", () => {
         .pipe(htmlmin({ collapseWhitespace: true }))
         .pipe(gulp.dest(CONFIG.dest))
 });
+
+gulp.task("build", gulp.parallel("copy-views"));
