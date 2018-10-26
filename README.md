@@ -16,10 +16,11 @@ This visualization tool may also help understand the ethic of certain news platf
 This tool could be used by anyone who wants a better insight on the ethics of the news source they are using and get more information on the impact of news on society. Obviously this kind of tool might come in handy for journalists, psycologists or even economists.
 
 # Dataset description
-The dataset provided by the Gdelt project for this project is a huge amount of data collected. They've been collecting and analysing data from news websites since 2015. They provide a new dataset every 15 min of screening whith:
+The dataset provided by the Gdelt project for this project is a huge amount of data collected. They've been collecting and analysing data from news websites since 2015. They provide a new dataset every 15 min with:
 - a csv file containing all of the websites visited
 - a huge dataset on BigQuery from which a subset can be extracted to make the visualization
-- two pdf files that contains description of the dataset, which are:
+- two pdf files that contains description of the dataset
+- the dataset itself:
   - events
   - counts
   - quotes
