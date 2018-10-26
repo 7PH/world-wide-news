@@ -18,12 +18,19 @@ This tool could be used by anyone who wants a better insight on the ethics of th
 # Dataset description
 The dataset provided by the Gdelt project for this project is a huge amount of data collected. They've been collecting and analysing data from news websites since 2015. They provide a new dataset every 15 min of screening whith:
 - a csv file containing all of the websites visited
-- a huge dataset on BigQuery where we can extract a subset of data to visualize
-- two pdf files that contains description of the dataset
-The dataset contains information such as: ... FILL from website description
+- a huge dataset on BigQuery from which a subset can be extracted to make the visualization
+- two pdf files that contains description of the dataset, which are:
+  - events
+  - counts
+  - quotes
+  - people
+  - organizations
+  - locations
+  - themes
+  - emotions
+  - relevant imagery
+  - video
+  - embedded social media posts
 
 # Dataset URL
-https://blog.gdeltproject.org/gdelt-2-0-our-global-world-in-realtime/ (The Event Database)
-
-# Other
-To use BigQuery we actually need to have an account.
+https://blog.gdeltproject.org/gdelt-2-0-our-global-world-in-realtime/ (Event Database)
