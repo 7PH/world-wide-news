@@ -1,4 +1,6 @@
-# A tour of the digital media landscape and its impact on society.
+# Data Visualization Project
+
+**A tour of the digital media landscape and its impact on society.**
 
 # Objective
 As the internet is slowly replacing the traditional medias platforms, we can wonder what impact these new information flows can have on society.
