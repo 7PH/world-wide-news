@@ -13,7 +13,7 @@ We want to give an understanding of the impact of news on society by answering s
 This visualization tool may also help understand the ethic of certain news platforms, as media bias, or information that are intentionally or unintentionally false. We may also compare the different news platforms and understand which ones that are the most exhaustive and accurate in the information they offer.
 
 # Target audience
-This tool could be used by anyone who wants a better insight on the ethics of the news source they are using and get more information on the impact of news on society. Obviously this kind of tool might come in handy for journalists, psycologists or even economists.
+This tool could be used by anyone who wants a better insight on the ethics of the news source they are using and get more information on the impact of news on society. This kind of tool might come in handy for journalists, psycologists or even economists.
 
 # Dataset description
 The dataset provided by the Gdelt project for this project is a huge amount of data collected. They've been collecting and analysing data from news websites since 2015. They provide a new dataset every 15 min with:
