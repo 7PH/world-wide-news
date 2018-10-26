@@ -9,7 +9,7 @@ The internet allows for cross-referencing between multiple sources of informatio
 The aim of this project is to analyze how different events happening in the world are translated in online news.
 In short, we want to offer a tour of the digital media landscape and its impact on society.
 
-Understanding the impact of news on society by answering simple questions: What type of news is most likely to be conveyed in the media, what news type makes people react the most, what link can we draw between the news content and people feelings, news type popularity by country, and so on.
+We want to give an understanding of the impact of news on society by answering simple questions: What type of news is most likely to be conveyed in the media, what news type makes people react the most, what link can we draw between the news content and people feelings, news type popularity by country, and so on.
 This visualization tool may also help understand the ethic of certain news platforms, as media bias, or information that are intentionally or unintentionally false. We may also compare the different news platforms and understand which ones that are the most exhaustive and accurate in the information they offer.
 
 # Target audience
