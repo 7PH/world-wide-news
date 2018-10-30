@@ -6,6 +6,8 @@ const cleanCSS = require('gulp-clean-css');
 const webpack = require('webpack');
 const webpackStream = require('webpack-stream');
 const webpackConfig = require('./webpack.config.js');
+const uglify = require('gulp-uglify');
+const jsObfuscator = require('gulp-javascript-obfuscator');
 
 
 /**
@@ -59,6 +61,8 @@ gulp.task("copy-assets", () => {
 gulp.task("src", function () {
     return gulp.src(CONFIG.src.paths)
         .pipe(webpackStream(webpackConfig), webpack)
+        .pipe(uglify())
+        .pipe(jsObfuscator())
         .pipe(gulp.dest(CONFIG.dest));
 });
 

@@ -30,8 +30,10 @@
         "gulp": "^4.0.0",
         "gulp-clean-css": "^3.10.0",
         "gulp-htmlmin": "^5.0.1",
+        "gulp-javascript-obfuscator": "^1.1.4",
         "gulp-pug": "^4.0.1",
         "gulp-sass": "^4.0.2",
+        "gulp-uglify": "^3.0.1",
         "mocha": "^5.2.0",
         "webpack": "^4.23.1",
         "webpack-stream": "^5.1.1"
