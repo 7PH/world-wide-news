@@ -31,14 +31,6 @@ const CONFIG = {
     dest: 'dist/'
 };
 
-
-
-// @TODO build process
-// @TODO deploy process
-
-
-
-
 gulp.task("copy-views", () => {
     return gulp.src(CONFIG.pug.paths)
         .pipe(pug())
@@ -61,8 +53,8 @@ gulp.task("copy-assets", () => {
 gulp.task("src", function () {
     return gulp.src(CONFIG.src.paths)
         .pipe(webpackStream(webpackConfig), webpack)
-        .pipe(uglify())
-        .pipe(jsObfuscator())
+        //.pipe(uglify()) // minify js (makes debug harder) => for prod
+        //.pipe(jsObfuscator()) // careful this (makes debug hard) => for prod
         .pipe(gulp.dest(CONFIG.dest));
 });
 
