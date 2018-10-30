@@ -8,10 +8,10 @@
         "doc": "docs"
     },
     "scripts": {
-        "clean": "rm -rf ./dist/*",
+        "clean": "rm -rf ./docs/*",
         "build": "npm run clean && gulp build",
         "test": "mocha test/test.js",
-        "start": "npm run build && http-server ./dist/",
+        "start": "npm run build && http-server ./docs/",
         "deploy": "echo \"@TODO\" && exit 1"
     },
     "repository": {

@@ -28,7 +28,7 @@ const CONFIG = {
         paths: ['app/assets/**/*'],
         dest: '/assets'
     },
-    dest: 'dist/'
+    dest: 'docs/'
 };
 
 gulp.task("copy-views", () => {
