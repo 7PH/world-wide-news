@@ -1,10 +1,22 @@
+-
+    const CONFIG = {
+        mockups: [
+            "Mockup 01",
+            "Mockup 02"
+        ]
+    }
+
 doctype html
 html
-    head
-        meta(charset="UTF-8")
-        link(rel="stylesheet", href="main.css")
+    include includes/head
+
     body
         p#page-title
             | @TODO Start
 
-        script(src="bundle.js")
+        ul
+            each item, index in CONFIG.mockups
+                li
+                    a(href=`mockup-${index}.html`)= item
+
+        include includes/footer
