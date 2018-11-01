@@ -19,7 +19,7 @@ const CONFIG = {
         paths: ['app/src/index.js'],
     },
     pug: {
-        paths: ['app/views/**/*'],
+        paths: ['app/views/**/*.pug'],
     },
     scss: {
         paths: ['app/styles/*.scss']

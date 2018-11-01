@@ -7,6 +7,14 @@
 //      background-color: $BG_COLOR;
 // }
 
+
+html, body {
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+}
+
+// index.html
 #page-title {
     text-align: center;
 }

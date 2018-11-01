@@ -1,0 +1,11 @@
+
+$FOOTER_HEIGHT: 120px;
+
+#page-content {
+    height: calc(100% - #{$FOOTER_HEIGHT});
+    width: 100%;
+}
+
+#page-footer {
+    height: $FOOTER_HEIGHT;
+}
