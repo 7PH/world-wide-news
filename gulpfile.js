@@ -25,8 +25,7 @@ const CONFIG = {
         paths: ['app/styles/*.scss']
     },
     resources: {
-        paths: ['app/assets/**/*'],
-        dest: '/assets'
+        paths: ['app/assets/**/*']
     },
     dest: 'docs/'
 };
@@ -47,7 +46,7 @@ gulp.task("copy-scss", function () {
 
 gulp.task("copy-assets", () => {
     return gulp.src(CONFIG.resources.paths)
-        .pipe(gulp.dest(CONFIG.dest + CONFIG.resources.dest))
+        .pipe(gulp.dest(CONFIG.dest))
 });
 
 gulp.task("src", function () {
