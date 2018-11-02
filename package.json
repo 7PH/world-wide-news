@@ -8,12 +8,11 @@
         "doc": "docs"
     },
     "scripts": {
-        "clean": "rm -rf ./docs/*",
-        "build": "mode=\"prod\" npm run clean && gulp build",
+        "build": "gulp build",
         "test": "mocha test/test.js",
         "lint": "eslint ./app/**/*.js ./*.js",
         "lint:fix": "eslint --fix ./app/**/*.js ./*.js",
-        "start": "mode=\"dev\" npm run build && http-server ./docs/",
+        "start": "npm run build && http-server ./docs/",
         "deploy": "npm run build && git commit -am \"Deploy new website version\" && git push origin master"
     },
     "repository": {
