@@ -26,7 +26,7 @@ const CONFIG = {
     resources: {
         paths: ["app/assets/**/*"]
     },
-    mode: "production",
+    mode: process.env.mode === "dev" ? "development" : "production",
     dest: "docs/"
 };
 
