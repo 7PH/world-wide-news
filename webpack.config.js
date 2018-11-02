@@ -1,7 +1,7 @@
 module.exports = {
     output: {
-        path: __dirname + '/dist',
-        filename: 'bundle.js',
+        path: __dirname + "/dist",
+        filename: "bundle.js",
     },
     mode: "development",
     module: {
@@ -9,11 +9,11 @@ module.exports = {
             {
                 test: /\.(js)$/,
                 exclude: /(node_modules)/,
-                loader: 'babel-loader',
+                loader: "babel-loader",
             },
             {
                 test: /\.css$/,
-                use: ['style-loader', 'css-loader']
+                use: ["style-loader", "css-loader"]
             },
             {
                 test: /\.(jpg|png|svg)$/,
@@ -28,7 +28,7 @@ module.exports = {
         ],
     },
     resolve: {
-        extensions: ['*', '.js', '.json']
+        extensions: ["*", ".js", ".json"]
     },
     externals: {
         // @TODO add d3.js
