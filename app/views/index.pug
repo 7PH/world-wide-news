@@ -1,9 +1,6 @@
 -
     const CONFIG = {
-        mockups: [
-            "Mockup 1",
-            "Mockup 2"
-        ]
+
     }
 
 doctype html
@@ -11,12 +8,11 @@ html
     include includes/head
 
     body
-        p#page-title
-            | @TODO Start
+        section#page-intro.page
+            p Click to start
 
-        ul
-            each item, index in CONFIG.mockups
-                li
-                    a(href=`./mockup-${index}/`)= item
+        section#page-content.page.hidden
+            p#page-title
+                | {loading..}
 
         include includes/bottom
