@@ -6,7 +6,7 @@ const cleanCSS = require("gulp-clean-css");
 const webpack = require("webpack");
 const webpackStream = require("webpack-stream");
 const webpackConfig = require("./webpack.config.js");
-const uglify = require("gulp-uglify");
+const terser = require("gulp-terser");
 const jsObfuscator = require("gulp-javascript-obfuscator");
 
 
@@ -55,7 +55,7 @@ gulp.task("src", function () {
 
     if (CONFIG.mode !== "development")
         bundled = bundled
-            .pipe(uglify())
+            .pipe(terser())
             .pipe(jsObfuscator());
 
     return bundled.pipe(gulp.dest(CONFIG.dest));
