@@ -21698,7 +21698,7 @@
 
         this.isPresenting = isPresenting;
 
-        // Animation Loop
+        // MainAnimation Loop
 
         var animation = new WebGLAnimation();
 
@@ -21930,7 +21930,7 @@
 
         this.isPresenting = isPresenting;
 
-        // Animation Loop
+        // MainAnimation Loop
 
         var onAnimationFrameCallback = null;
 
@@ -22985,7 +22985,7 @@
 
         };
 
-        // Animation Loop
+        // MainAnimation Loop
 
         var onAnimationFrameCallback = null;
 

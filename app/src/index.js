@@ -1,11 +1,11 @@
-const ContentController = require('./ContentController');
+const Animation = require('./Animation');
 
 function gotoContent() {
 
     document.getElementById('page-intro').style.display = 'none';
     document.getElementById('page-content').classList.remove('hidden');
 
-    new ContentController();
+    Animation.start();
 }
 
 
