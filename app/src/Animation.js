@@ -48,9 +48,14 @@ class Animation {
         pointLight.position.z = 400;
         scene.add(pointLight);
 
+        let lastUpdate = Date.now();
         function animate() {
             requestAnimationFrame(animate);
+            let currUpdate = Date.now();
+            const delta = (currUpdate - lastUpdate) * 0.001;
+            globe.rotation.y += delta * 0.1;
             renderer.render(scene, camera);
+            lastUpdate = currUpdate;
         }
         animate();
     }
