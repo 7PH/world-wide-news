@@ -30,6 +30,8 @@ const CONFIG = {
     dest: "docs/"
 };
 
+console.log(CONFIG.mode);
+
 gulp.task("copy-views", () =>
     gulp.src(CONFIG.pug.paths)
         .pipe(pug())

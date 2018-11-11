@@ -28,6 +28,7 @@
     "devDependencies": {
         "@babel/core": "^7.1.2",
         "babel-loader": "^8.0.4",
+        "eslint": "^5.9.0",
         "gulp": "^4.0.0",
         "gulp-clean-css": "^3.10.0",
         "gulp-htmlmin": "^5.0.1",
