@@ -1,4 +1,9 @@
+-
+    var CONFIG = {
+
+        seed: Date.now()
+    }
 head
     meta(charset="UTF-8")
-    link(rel="stylesheet", href="/main.css")
-    script(src="js/vendor/three.js")
+    link(rel="stylesheet", href="/main.css?" + CONFIG.seed)
+    script(src="js/vendor/three.js?" + CONFIG.seed)

@@ -1,1 +1,7 @@
-script(src="/bundle.js")
+-
+    var CONFIG = {
+
+        seed: Date.now()
+    }
+
+script(src="/bundle.js?" + CONFIG.seed)
