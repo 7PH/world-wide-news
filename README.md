@@ -1,4 +1,4 @@
-# Data Visualization Project
+# Data Visualization Project <img src="https://travis-ci.com/7PH/EPFL-Data-Visualization-Project.svg?token=Za94vW75EZvYRU3Un778&branch=master">
 
 **A tour of the digital media landscape and its impact on society.**
 
