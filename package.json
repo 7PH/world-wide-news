@@ -13,7 +13,7 @@
         "lint": "eslint ./app/**/*.js ./*.js",
         "lint:fix": "eslint --fix ./app/**/*.js ./*.js",
         "start": "npm run build && http-server ./docs/",
-        "deploy": "npm run build && git commit -am \"Deploy new website version\" && git push origin master"
+        "deploy": "git rm -r ./docs/* && npm run build && git add ./docs/* && git commit -am \"Deploy new website version\" && git push origin master"
     },
     "repository": {
         "type": "git",
