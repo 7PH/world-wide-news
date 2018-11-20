@@ -1,16 +1,16 @@
-const Animation = require('./Animation');
+import {Stage} from "./animation/Stage";
 
 function gotoContent() {
 
-    document.getElementById('page-intro').style.display = 'none';
-    document.getElementById('page-content').classList.remove('hidden');
+    document.getElementById("page-intro").style.display = "none";
+    document.getElementById("page-content").classList.remove("hidden");
 
-    Animation.start();
+    Stage.start();
 }
 
 
-window.addEventListener('load', () => {
+window.addEventListener("load", () => {
 
-    document.getElementById('page-intro')
-        .addEventListener('click', () => gotoContent());
+    document.getElementById("page-intro")
+        .addEventListener("click", () => gotoContent());
 });

@@ -26,11 +26,9 @@ const CONFIG = {
     resources: {
         paths: ["app/assets/**/*"]
     },
-    mode: process.env.mode === "dev" ? "development" : "production",
+    mode: process.env.mode === "prod" ? "production" : "development",
     dest: "docs/"
 };
-
-console.log(CONFIG.mode);
 
 gulp.task("copy-views", () =>
     gulp.src(CONFIG.pug.paths)
@@ -52,6 +50,7 @@ gulp.task("copy-assets", () => {
 });
 
 gulp.task("src", function () {
+
     let bundled = gulp.src(CONFIG.src.paths)
         .pipe(webpackStream(webpackConfig), webpack);
 

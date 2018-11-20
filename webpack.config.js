@@ -32,6 +32,6 @@ module.exports = {
     },
     externals: {
         // @TODO add d3.js
-        THREE: 'THREE'
+        three: "THREE"
     }
 };

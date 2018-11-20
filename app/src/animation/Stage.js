@@ -1,5 +1,9 @@
+import * as THREE from "three";
+import {PointLight} from "./PointLight";
 
-class Animation {
+
+
+export class Stage {
 
     constructor() {
         throw new Error("Utility class, non instantiable");
@@ -23,7 +27,7 @@ class Animation {
         const scene = new THREE.Scene();
         scene.background = new THREE.Color(0x000000);
         scene.add(camera);
-        document.getElementById('animation').appendChild(renderer.domElement);
+        document.getElementById("animation").appendChild(renderer.domElement);
 
         // sphere
         const RADIUS = 200;
@@ -32,7 +36,7 @@ class Animation {
         const globe = new THREE.Group();
         scene.add(globe);
         const loader = new THREE.TextureLoader();
-        loader.load('textures/earth.jpg', (texture) => {
+        loader.load("textures/earth.jpg", (texture) => {
 
             const sphere = new THREE.SphereGeometry(RADIUS, SEGMENTS, RINGS);
             const material = new THREE.MeshBasicMaterial({map: texture});
@@ -42,7 +46,7 @@ class Animation {
         globe.position.z = -300;
 
         // light
-        const pointLight = new THREE.PointLight(0xFFFFFF);
+        const pointLight = new PointLight(0xFFFFFF);
         pointLight.position.x = 10;
         pointLight.position.y = 50;
         pointLight.position.z = 400;
@@ -60,5 +64,3 @@ class Animation {
         animate();
     }
 }
-
-module.exports = Animation;

@@ -1,44 +1,47 @@
 {
-    "name": "epfl-data-visualization-project",
-    "version": "0.0.0",
-    "private": true,
-    "description": "",
-    "main": "index.js",
-    "directories": {
-        "doc": "docs"
-    },
-    "scripts": {
-        "build": "gulp build",
-        "test": "mocha test/test.js",
-        "lint": "eslint ./app/**/*.js ./*.js",
-        "lint:fix": "eslint --fix ./app/**/*.js ./*.js",
-        "start": "npm run build && http-server ./docs/",
-        "deploy": "git rm -r ./docs/* && npm run build && git add ./docs/* && git commit -am \"Deploy new website version\" && git push origin master"
-    },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/7PH/EPFL-Data-Visualization-Project.git"
-    },
-    "author": "",
-    "license": "ISC",
-    "bugs": {
-        "url": "https://github.com/7PH/EPFL-Data-Visualization-Project/issues"
-    },
-    "homepage": "https://github.com/7PH/EPFL-Data-Visualization-Project#readme",
-    "devDependencies": {
-        "@babel/core": "^7.1.2",
-        "babel-loader": "^8.0.4",
-        "eslint": "^5.9.0",
-        "gulp": "^4.0.0",
-        "gulp-clean-css": "^3.10.0",
-        "gulp-htmlmin": "^5.0.1",
-        "gulp-javascript-obfuscator": "^1.1.4",
-        "gulp-pug": "^4.0.1",
-        "gulp-sass": "^4.0.2",
-        "gulp-terser": "^1.1.5",
-        "http-server": "^0.11.1",
-        "mocha": "^5.2.0",
-        "webpack": "^4.23.1",
-        "webpack-stream": "^5.1.1"
-    }
+  "name": "epfl-data-visualization-project",
+  "version": "0.0.0",
+  "private": true,
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "build": "gulp build",
+    "test": "mocha test/test.js",
+    "lint": "eslint ./app/src/**/*.js ./*.js",
+    "lint:fix": "eslint --fix ./app/src/**/*.js ./*.js",
+    "start": "npm run build && http-server ./docs/",
+    "deploy": "git rm -r ./docs/* && npm run build && git add ./docs/* && git commit -am \"Deploy new website version\" && git push origin master"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/7PH/EPFL-Data-Visualization-Project.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/7PH/EPFL-Data-Visualization-Project/issues"
+  },
+  "homepage": "https://github.com/7PH/EPFL-Data-Visualization-Project#readme",
+  "devDependencies": {
+    "@babel/core": "^7.1.2",
+    "@types/three": "^0.93.10",
+    "babel-loader": "^8.0.4",
+    "eslint": "^5.9.0",
+    "gulp": "^4.0.0",
+    "gulp-clean-css": "^3.10.0",
+    "gulp-htmlmin": "^5.0.1",
+    "gulp-javascript-obfuscator": "^1.1.4",
+    "gulp-pug": "^4.0.1",
+    "gulp-sass": "^4.0.2",
+    "gulp-terser": "^1.1.5",
+    "http-server": "^0.11.1",
+    "mocha": "^5.2.0",
+    "three": "^0.98.0",
+    "webpack": "^4.23.1",
+    "webpack-stream": "^5.1.1"
+  },
+  "dependencies": {}
 }
