@@ -67,22 +67,21 @@ export class Stage {
         pointLight.position.z = 400;
         scene.add(pointLight);
 
+        let rotationVelocity = 100;
+
         let lastUpdate = Date.now();
-        function animate() {
+        function render() {
             let currUpdate = Date.now();
             const delta = (currUpdate - lastUpdate) * 0.001;
 
-
-            globe.rotation.x += .05 * delta;
-            globe.rotation.y += .1 * delta;
-            if (Math.random() < .5)
-                console.log(camera.position);
+            rotationVelocity += - .85 * rotationVelocity * delta;
+            globe.rotation.y += rotationVelocity * delta;
             orbitControls.update();
 
             renderer.render(scene, camera);
             lastUpdate = currUpdate;
-            requestAnimationFrame(animate);
+            requestAnimationFrame(render);
         }
-        animate();
+        render();
     }
 }
