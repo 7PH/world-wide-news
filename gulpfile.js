@@ -15,16 +15,16 @@ const jsObfuscator = require("gulp-javascript-obfuscator");
  */
 const CONFIG = {
     src: {
-        paths: ["app/src/index.js"],
+        paths: ["app/client/src/index.js"],
     },
     pug: {
-        paths: ["app/views/**/*.pug"],
+        paths: ["app/client/views/**/*.pug"],
     },
     scss: {
-        paths: ["app/styles/*.scss"]
+        paths: ["app/client/styles/*.scss"]
     },
     resources: {
-        paths: ["app/assets/**/*"]
+        paths: ["app/client/assets/**/*"]
     },
     mode: process.env.mode === "prod" ? "production" : "development",
     dest: "docs/"

@@ -35,8 +35,20 @@ export class Stage {
         const RINGS = 50;
         const globe = new THREE.Group();
         scene.add(globe);
+
         const loader = new THREE.TextureLoader();
-        loader.load("textures/earth.jpg", (texture) => {
+
+        // starfield
+        let galaxyGeometry = new THREE.SphereGeometry(2000, 32, 32);
+        let galaxyMaterial = new THREE.MeshBasicMaterial({side: THREE.BackSide});
+        let galaxy = new THREE.Mesh(galaxyGeometry, galaxyMaterial);
+        loader.load("textures/starfield.png", texture => {
+
+            galaxyMaterial.map = texture;
+            scene.add(galaxy);
+        });
+
+        loader.load("textures/earth.jpg", texture => {
 
             const sphere = new THREE.SphereGeometry(RADIUS, SEGMENTS, RINGS);
             const material = new THREE.MeshBasicMaterial({map: texture});
@@ -54,12 +66,16 @@ export class Stage {
 
         let lastUpdate = Date.now();
         function animate() {
-            requestAnimationFrame(animate);
             let currUpdate = Date.now();
             const delta = (currUpdate - lastUpdate) * 0.001;
-            globe.rotation.y += delta * 0.1;
+
+
+            globe.rotation.x += .05 * delta;
+            globe.rotation.y += .1 * delta;
+
             renderer.render(scene, camera);
             lastUpdate = currUpdate;
+            requestAnimationFrame(animate);
         }
         animate();
     }
