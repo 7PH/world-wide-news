@@ -57,6 +57,10 @@ export class Stage {
         });
         globe.position.z = -300;
 
+        // controls
+        const orbitControls = new THREE.OrbitControls(camera);
+        orbitControls.update();
+
         // light
         const pointLight = new PointLight(0xFFFFFF);
         pointLight.position.x = 10;
@@ -72,6 +76,9 @@ export class Stage {
 
             globe.rotation.x += .05 * delta;
             globe.rotation.y += .1 * delta;
+            if (Math.random() < .5)
+                console.log(camera.position);
+            orbitControls.update();
 
             renderer.render(scene, camera);
             lastUpdate = currUpdate;
