@@ -21,7 +21,7 @@ export class Stage {
         const NEAR = 0.1;
         const FAR = 10000;
         const camera = new THREE.PerspectiveCamera(VIEW_ANGLE, ASPECT, NEAR, FAR);
-        camera.position.set(0, 0, 500);
+        camera.position.set(0, 0, - 1000);
 
         // scene
         const scene = new THREE.Scene();
@@ -39,7 +39,7 @@ export class Stage {
         const loader = new THREE.TextureLoader();
 
         // starfield
-        let galaxyGeometry = new THREE.SphereGeometry(2000, 32, 32);
+        let galaxyGeometry = new THREE.SphereGeometry(6000, 64, 64);
         let galaxyMaterial = new THREE.MeshBasicMaterial({side: THREE.BackSide});
         let galaxy = new THREE.Mesh(galaxyGeometry, galaxyMaterial);
         loader.load("textures/starfield.png", texture => {
@@ -55,7 +55,6 @@ export class Stage {
             const mesh = new THREE.Mesh(sphere, material);
             globe.add(mesh);
         });
-        globe.position.z = -300;
 
         // controls
         const orbitControls = new THREE.OrbitControls(camera);
