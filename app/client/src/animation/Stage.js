@@ -37,8 +37,15 @@ export class Stage {
         scene.add(globe);
 
         // point on the sphere
-        const point = new THREE.Mesh(new THREE.SphereGeometry(.05 * RADIUS, SEGMENTS, RINGS), new THREE.MeshBasicMaterial({color: 0xffffff}));
+        let point;
+        point = new THREE.Mesh(new THREE.SphereGeometry(.02 * RADIUS, SEGMENTS, RINGS), new THREE.MeshBasicMaterial({color: 0x888888}));
         point.position.y = RADIUS;
+        globe.add(point);
+        point = new THREE.Mesh(new THREE.SphereGeometry(.02 * RADIUS, SEGMENTS, RINGS), new THREE.MeshBasicMaterial({color: 0x888888}));
+        point.position.y = - RADIUS;
+        globe.add(point);
+        point = new THREE.Mesh(new THREE.SphereGeometry(.02 * RADIUS, SEGMENTS, RINGS), new THREE.MeshBasicMaterial({color: 0x888888}));
+        point.position.x = RADIUS;
         globe.add(point);
 
         const loader = new THREE.TextureLoader();
