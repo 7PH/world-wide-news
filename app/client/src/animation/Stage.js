@@ -36,6 +36,11 @@ export class Stage {
         const globe = new THREE.Group();
         scene.add(globe);
 
+        // point on the sphere
+        const point = new THREE.Mesh(new THREE.SphereGeometry(.05 * RADIUS, SEGMENTS, RINGS), new THREE.MeshBasicMaterial({color: 0xffffff}));
+        point.position.y = RADIUS;
+        globe.add(point);
+
         const loader = new THREE.TextureLoader();
 
         // starfield
