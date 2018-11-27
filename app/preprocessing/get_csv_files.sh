@@ -8,7 +8,7 @@
 # ------------------------------------------------
 
 SOURCE=http://data.gdeltproject.org/gdeltv2/masterfilelist.txt
-TARGET=/home/mobaxterm/EPFL1819/data_vizualisation/project/data
+TARGET=./
 
 # Print usage by default
 if [[ $# -lt 1 || $1 == "h" || $1 == "-help" || $1 == "--help" ]] ; then
