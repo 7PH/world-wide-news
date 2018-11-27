@@ -30,8 +30,32 @@ html, body {
 
 #page-content {
 
-    #animation {
+    position: relative;
+    width: 100%;
+    height: 100%;
+
+    > * {
+        position: absolute;
+        top: 0;
+        left: 0;
         width: 100%;
         height: 100%;
+    }
+
+    #animation { z-index: 1; }
+    #timeline { z-index: 2; }
+}
+
+#timeline {
+    margin-top: calc(100vh - 120px);
+    background-color: #111111;
+
+    #timeline-bloc {
+        margin-left: 20px;
+        margin-top: 20px;
+        width: calc(100% - 40px);
+        height: 80px;
+        border: 1px solid #424a88;
+        background-color: #111;
     }
 }
