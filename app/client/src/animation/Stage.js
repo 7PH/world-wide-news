@@ -88,6 +88,7 @@ export class Stage {
 
             rotationVelocity += - .85 * rotationVelocity * delta;
             globe.rotation.y += rotationVelocity * delta;
+            galaxy.rotation.y += 0.004 * delta;
             orbitControls.update();
 
             renderer.render(scene, camera);
