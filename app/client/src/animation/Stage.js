@@ -1,5 +1,6 @@
 import * as THREE from "three";
 import {PointLight} from "./PointLight";
+import {lat2xyz, LAUSANNE, PHILLY} from "../util/functions";
 
 
 
@@ -38,14 +39,18 @@ export class Stage {
 
         // point on the sphere
         let point;
+        let coords;
         point = new THREE.Mesh(new THREE.SphereGeometry(.02 * RADIUS, SEGMENTS, RINGS), new THREE.MeshBasicMaterial({color: 0x888888}));
-        point.position.y = RADIUS;
+        coords = lat2xyz(LAUSANNE.latitude, LAUSANNE.longitude);
+        point.position.x = coords.x * RADIUS;
+        point.position.y = coords.y * RADIUS;
+        point.position.z = coords.z * RADIUS;
         globe.add(point);
         point = new THREE.Mesh(new THREE.SphereGeometry(.02 * RADIUS, SEGMENTS, RINGS), new THREE.MeshBasicMaterial({color: 0x888888}));
-        point.position.y = - RADIUS;
-        globe.add(point);
-        point = new THREE.Mesh(new THREE.SphereGeometry(.02 * RADIUS, SEGMENTS, RINGS), new THREE.MeshBasicMaterial({color: 0x888888}));
-        point.position.x = RADIUS;
+        coords = lat2xyz(PHILLY.latitude, PHILLY.longitude);
+        point.position.x = coords.x * RADIUS;
+        point.position.y = coords.y * RADIUS;
+        point.position.z = coords.z * RADIUS;
         globe.add(point);
 
         const loader = new THREE.TextureLoader();
