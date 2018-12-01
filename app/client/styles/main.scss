@@ -61,16 +61,23 @@ html, body {
         border: 1px solid #424a88;
         background-color: #15161b;
 
-        #timeline-cursor {
+        .timeline-cursor {
             position: absolute;
-            top: -12px;
-            left: 40%;
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            border: 1px solid #527dcb;
+            top: 0;
+            width: 12px;
+            height: 24px;
+            border-left: 1px solid #527dcb;
+            border-right: 1px solid #527dcb;
             background-color: #15161b;
             cursor: pointer;
+        }
+
+        #timeline-first-cursor {
+            left: 10%;
+        }
+
+        #timeline-second-cursor {
+            left: 20%;
         }
     }
 }
