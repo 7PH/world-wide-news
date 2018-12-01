@@ -11,6 +11,8 @@ function gotoContent() {
 
 window.addEventListener("load", () => {
 
+    document.getElementById("timeline-range").value = "0.1,0.2";
+
     document.getElementById("page-intro")
         .addEventListener("click", () => gotoContent());
 });

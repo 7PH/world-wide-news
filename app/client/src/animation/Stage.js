@@ -94,7 +94,7 @@ export class Stage {
         });
 
         // controls
-        const orbitControls = new THREE.OrbitControls(Stage.camera);
+        const orbitControls = new THREE.OrbitControls(Stage.camera, document.getElementById("animation"));
         orbitControls.update();
 
         // light
