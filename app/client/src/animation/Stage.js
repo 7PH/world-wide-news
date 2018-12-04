@@ -1,6 +1,6 @@
 import * as THREE from "three";
-import {PointLight} from "./PointLight";
-import {lat2xyz, LAUSANNE, PHILLY} from "../util/functions";
+import {lat2xyz} from "../util/functions";
+import {LAUSANNE, PHILLY} from "../util/coords";
 
 
 
