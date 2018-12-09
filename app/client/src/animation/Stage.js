@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import {lat2xyz} from "../util/functions";
+import {lat2xyz} from "../util/maths";
 import {LAUSANNE, PHILLY} from "../util/coords";
 
 
