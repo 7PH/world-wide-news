@@ -1,7 +1,14 @@
 -
-    var CONFIG = {
+    var data = {
 
-        seed: Date.now()
+        seed: Date.now(),
+
+        windows: [
+
+            {title: "1 week", value: 1},
+            {title: "2 weeks", value: 2},
+            {title: "1 month", value: 4}
+        ]
     }
 
 doctype html
@@ -40,6 +47,11 @@ html
         section#page-content.page.hidden
             div#animation
             div#timeline
+                div#timeline-controls
+                    each item, index in data.windows
+                        div.timeline-controls
+                            input(id=`wd-${index}`, type="radio", name="timeline-window", value=item.value)
+                            label(for=`wd-${index}`)= item.title
                 div#timeline-bloc
                     input#timeline-range(type="range", min="0", max="1", step="0.01")
 
