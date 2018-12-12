@@ -9,6 +9,7 @@
   },
   "scripts": {
     "build": "gulp build",
+    "download": "sh scripts/download.sh",
     "test": "mocha test/test.js",
     "lint": "eslint ./app/src/**/*.js ./*.js",
     "lint:fix": "eslint --fix ./app/src/**/*.js ./*.js",
