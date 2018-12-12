@@ -38,8 +38,8 @@ app.get('/api', async (req, res) => {
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 
     // parse params
-    const start = req.query.start;
-    const end = req.query.end;
+    const start = parseInt(req.query.start);
+    const end = parseInt(req.query.end);
 
     // fetch data
     try {
