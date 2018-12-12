@@ -1,4 +1,7 @@
 import {Stage} from "./animation/Stage";
+import {Preload} from "./preloader/Preload";
+import "./timeline/timeline";
+
 
 function gotoContent() {
 
@@ -8,8 +11,9 @@ function gotoContent() {
     Stage.start();
 }
 
+window.addEventListener("load", async () => {
 
-window.addEventListener("load", () => {
+    await Preload.run();
 
     document.getElementById("timeline-range").value = "0.1,0.2";
 
