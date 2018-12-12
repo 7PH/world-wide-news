@@ -1,6 +1,7 @@
 import * as THREE from "three";
 import {lat2xyz} from "../util/maths";
 import {LAUSANNE, PHILLY} from "../util/coords";
+import {APIHelper} from "../api/APIHelper";
 
 
 
@@ -10,9 +11,25 @@ export class Stage {
         throw new Error("Utility class, non instantiable");
     }
 
+    static async addAllPoints(loader, globe, radius, start, end) {
+
+        const data = await APIHelper.fetch(start, end);
+        for (let event of data['export']) {
+
+            if (Math.random() < .2)
+                Stage.addPoint(
+                    loader,
+                    globe,
+                    radius,
+                    event.ActionGeo_Lat,
+                    event.ActionGeo_Long
+                );
+        }
+    }
+
     static addPoint(loader, globe, radius, latitude, longitude) {
 
-        const pointRadius = 0.01 * radius;
+        const pointRadius = 0.005 * radius;
         const pointGeometry = new THREE.SphereGeometry(pointRadius, 32, 32);
         const customMaterial = new THREE.ShaderMaterial({
             uniforms:
@@ -42,10 +59,9 @@ export class Stage {
         glow.position.z = point.position.z;
         glow.scale.multiplyScalar(1.8);
         globe.add(glow);
-
     }
 
-    static start() {
+    static async start() {
         const renderer = new THREE.WebGLRenderer();
         const WIDTH = window.innerWidth;
         const HEIGHT = window.innerHeight;
@@ -107,6 +123,7 @@ export class Stage {
         // point
         Stage.addPoint(loader, globe, RADIUS, LAUSANNE.latitude, LAUSANNE.longitude);
         Stage.addPoint(loader, globe, RADIUS, PHILLY.latitude, PHILLY.longitude);
+        await Stage.addAllPoints(loader, globe, RADIUS, 1513109407, 1513109807);
 
         let rotationVelocity = 10;
 

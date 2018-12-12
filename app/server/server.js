@@ -25,8 +25,7 @@ async function asyncExec(command, args) {
  * @returns {Promise<string>}
  */
 async function fetchType(type, start, end) {
-    const stdout = await asyncExec('python3', ['-m', 'app.preprocessing.api', Math.floor(start), Math.floor(end), type])
-    console.log(stdout);
+    const stdout = await asyncExec('python3', ['-m', 'app.preprocessing.api', Math.floor(start), Math.floor(end), type]);
     return JSON.parse(stdout);
 }
 
@@ -34,7 +33,9 @@ async function fetchType(type, start, end) {
 app.get('/api', async (req, res) => {
 
     // init
-    res.setHeader('Content-Type', 'application/json');
+    res.header('Content-Type', 'application/json');
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 
     // parse params
     const start = req.query.start;
