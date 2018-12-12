@@ -29,5 +29,5 @@ export class APIHelper {
 
 
 APIHelper.PROTOCOL = "http";
-APIHelper.HOST = "localhost";
+APIHelper.HOST = "benjamin-raymond.pro";
 APIHelper.PORT = "3000";
