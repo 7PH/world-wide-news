@@ -59,13 +59,26 @@ html, body {
         padding-left: 60px;
 
         .timeline-controls {
+            display: inline-block;
+        }
 
+        input[type="radio"] {
+            display: none;
+        }
+
+        label {
+
+            cursor: pointer;
             border: 1px solid #424a88;
             display: inline-block;
             padding: 6px;
             background-color: #15161b;
             margin-left: 20px;
             border-radius: 2px;
+        }
+
+        input[type="radio"]:checked + label {
+            background: #575D88;
         }
     }
 
