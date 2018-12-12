@@ -117,8 +117,8 @@ def get_all(master, type, d1, d2, verbose=False):
 
 # test
 master = fetch_master()
-d1 = datetime.datetime.strptime(sys.argv[1], "%Y-%m-%d %H:%M:%S")
-d2 = datetime.datetime.strptime(sys.argv[2], "%Y-%m-%d %H:%M:%S")
+d1 = datetime.datetime.utcfromtimestamp(int(sys.argv[1])).strftime('%Y-%m-%d %H:%M:%S')
+d2 = datetime.datetime.utcfromtimestamp(int(sys.argv[2])).strftime('%Y-%m-%d %H:%M:%S')
 d = get_all(master, sys.argv[3], d1, d2, False)
 print(d.to_json(orient='records'))
 
