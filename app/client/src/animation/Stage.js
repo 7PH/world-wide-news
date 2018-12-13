@@ -13,17 +13,22 @@ export class Stage {
 
     static async addAllPoints(loader, globe, radius, start, end) {
 
-        const data = await APIHelper.fetch(start, end);
-        for (let event of data['export']) {
+        try {
+            const data = await APIHelper.fetch(start, end);
+            for (let event of data['export']) {
 
-            if (Math.random() < .2)
-                Stage.addPoint(
-                    loader,
-                    globe,
-                    radius,
-                    event.ActionGeo_Lat,
-                    event.ActionGeo_Long
-                );
+                if (Math.random() < .2)
+                    Stage.addPoint(
+                        loader,
+                        globe,
+                        radius,
+                        event.ActionGeo_Lat,
+                        event.ActionGeo_Long
+                    );
+            }
+
+        } catch (e) {
+            console.error(e);
         }
     }
 
