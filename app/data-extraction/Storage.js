@@ -38,35 +38,25 @@ class Storage {
                 \`type\` varchar(32) COLLATE utf8_bin NOT NULL,
                 \`date\` varchar(32) COLLATE utf8_bin NOT NULL,
                 \`url\` varchar(256) COLLATE utf8_bin NOT NULL,
-                PRIMARY KEY (\`type\`, \`date\`)
+                \`fetched\` int(11) NOT NULL,
+                PRIMARY KEY (\`type\`, \`date\`),
+                INDEX(\`fetched\`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;`);
+
+        await this.db.query(`
+            CREATE TABLE IF NOT EXISTS ${Storage.TABLE_EVENTS} (
+                \`id\` int(11) NOT NULL,
+                \`lat\` float,
+                \`long\` float,
+                \`goldstein\` int(11) NOT NULL,
+                \`num_mentions\` int(11) NOT NULL,
+                \`date_added\` varchar(32) COLLATE utf8_bin NOT NULL,
+                \`source_url\` varchar(256) COLLATE utf8_bin NOT NULL,
+                PRIMARY KEY (\`id\`)
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;`);
 
         await this.db.query(`TRUNCATE ${Storage.TABLE_MASTER}`);
-    }
-
-    /**
-     *
-     * @param type
-     * @param dateStart
-     * @param dateEnd
-     * @return {Promise<void>}
-     */
-    async searchMaster(type, dateStart, dateEnd) {
-
-    }
-
-    /**
-     *
-     * @param type
-     * @param date
-     * @return {Promise<boolean>}
-     */
-    async hasInMaster(type, date) {
-        const rqt = await this
-            .db
-            .query(`SELECT COUNT(*) as count FROM ${Storage.TABLE_MASTER}
-                    WHERE type=? AND date=?`, [type, date]);
-        return rqt[0].count !== 0;
+        await this.db.query(`TRUNCATE ${Storage.TABLE_EVENTS}`);
     }
 
     /**
@@ -80,10 +70,54 @@ class Storage {
         return this
             .db
             .query(`INSERT INTO ${Storage.TABLE_MASTER}
-                    (\`type\`, \`date\`, \`url\`)
-                    VALUES (?, ?, ?)`, [type, date, url]);
+                    (\`type\`, \`date\`, \`url\`, \`fetched\`)
+                    VALUES (?, ?, ?, ?)`, [type, date, url, 0]);
     }
 
+    /**
+     * Get unfetched files from master
+     *
+     * @return {Promise<*>}
+     */
+    async getUnfetched() {
+        return await this
+            .db
+            .query(`SELECT * FROM ${Storage.TABLE_MASTER} WHERE fetched=?`, [0]);
+    }
+
+    /**
+     * Insert all events in db
+     * @param events
+     * @return {Promise<void[]>}
+     */
+    insertEvents(events) {
+        return Promise.all(events.map(event => this.insertEvent(event)));
+    }
+
+    /**
+     * Insert an event in database
+     *
+     * @param event
+     * @return {Promise<*>}
+     */
+    async insertEvent(event) {
+        return this
+            .db
+            .query(`INSERT INTO ${Storage.TABLE_EVENTS}
+                    (\`id\`, \`lat\`, \`long\`, \`goldstein\`, \`num_mentions\`, \`date_added\`, \`source_url\`)
+                    VALUES (?, ?, ?, ?, ?, ?, ?)`,
+                [event.id, event.lat, event.long, event.goldstein, event.num_mentions, event.date_added, event.source_url]);
+    }
+
+    async markFetched(type, date) {
+        return await this
+            .db
+            .query(`UPDATE ${Storage.TABLE_MASTER} SET fetched=? WHERE type=? AND date=?`, [1, type, date]);
+    }
+
+    async close() {
+        this.db.close();
+    }
 }
 
 Storage.CONNECT_URL = "./data/database.sqlite";
