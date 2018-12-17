@@ -8,7 +8,8 @@ const webpackStream = require("webpack-stream");
 const webpackConfig = require("./webpack.config.js");
 const terser = require("gulp-terser");
 const jsObfuscator = require("gulp-javascript-obfuscator");
-
+const nodemon = require('gulp-nodemon');
+const multiProcess = require('gulp-multi-process');
 
 /**
  *
@@ -63,3 +64,28 @@ gulp.task("src", function () {
 });
 
 gulp.task("build", gulp.parallel("src", "copy-views", "copy-scss", "copy-assets"));
+
+gulp.task('watch-server', function() {
+    nodemon({
+        script: 'app/server/server.js',
+        watch: ['app/server/**/*'],
+        ext: '*'
+    })
+        .on('restart', function () {
+            console.log('Back-end restarted!');
+        })
+        .on('crash', function() {
+            console.error('Application has crashed!\n');
+            stream.emit('restart', 10) // restart the server in 10 seconds
+        });
+});
+
+gulp.task('watch-client', function() {
+    gulp.watch('app/client/**/*', gulp.series('build'));
+});
+
+gulp.task('watch', function(done) {
+    return multiProcess(['watch-client', 'watch-server'], done);
+});
+
+gulp.task('default', gulp.series('build', 'watch'));

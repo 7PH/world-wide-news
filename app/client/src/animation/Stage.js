@@ -127,7 +127,6 @@ export class Stage {
 
         // point
         Stage.addPoint(loader, globe, RADIUS, LAUSANNE.latitude, LAUSANNE.longitude);
-        Stage.addPoint(loader, globe, RADIUS, PHILLY.latitude, PHILLY.longitude);
         await Stage.addAllPoints(loader, globe, RADIUS, 1513109407, 1513109807);
 
         let rotationVelocity = 10;
