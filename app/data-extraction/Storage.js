@@ -142,7 +142,8 @@ class Storage {
             .db
             .query(`INSERT INTO ${Storage.TABLE_EXPORT}
                     (\`id\`, \`lat\`, \`long\`, \`goldstein\`, \`num_mentions\`, \`tms\`, \`source_url\`)
-                    VALUES (?, ?, ?, ?, ?, ?, ?)`,
+                    VALUES (?, ?, ?, ?, ?, ?, ?)
+                    ON DUPLICATE KEY UPDATE id=id`,
                 [event.id, event.lat, event.long, event.goldstein, event.num_mentions, event.tms, event.source_url]);
     }
 
@@ -167,12 +168,38 @@ class Storage {
             .db
             .query(`INSERT INTO ${Storage.TABLE_MENTIONS}
                     (\`event\`, \`tms\`, \`name\`, \`confidence\`, \`tone\`)
-                    VALUES (?, ?, ?, ?, ?)`,
+                    VALUES (?, ?, ?, ?, ?)
+                    ON DUPLICATE KEY UPDATE id=id`,
                 [entry.event, entry.tms, entry.name, entry.confidence, entry.tone]);
     }
 
+    /**
+     *
+     * @param {number} start timestamp (sec)
+     * @param {number} end timestamp (sec)
+     * @return {Promise<any[]>}
+     */
+    getMentions(start, end) {
+        return this
+            .db
+            .query(`SELECT
+                        m.*,
+                        e.lat,
+                        e.long,
+                        e.tms as event_tms
+                    FROM ${Storage.TABLE_MENTIONS} as m
+                    INNER JOIN \`${Storage.TABLE_EXPORT}\` AS e ON e.id = m.event
+                    WHERE m.tms>? AND m.tms<?`,
+                [start, end]);
+    }
+
+    /**
+     * Close the mysql connection
+     *
+     * @return {Promise<void>}
+     */
     async close() {
-        // @TODO
+        this.db.end();
     }
 }
 

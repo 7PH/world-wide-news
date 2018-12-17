@@ -49,6 +49,6 @@ Helpers.MENTIONS_KEEP_COLUMNS = [
 ];
 
 Helpers.START_DATE = new Date(1475280000000);
-Helpers.END_DATE = new Date(1480550400000);
+Helpers.END_DATE = new Date(1475539200000);
 
 module.exports = Helpers;

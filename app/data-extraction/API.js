@@ -66,6 +66,17 @@ class API {
             });
         });
     }
+
+    /**
+     *
+     *
+     * @param {number} start
+     * @param {number} end
+     * @return {Promise<any[]>}
+     */
+    async getMentions(start, end) {
+        return this.storage.getMentions(start, end);
+    }
 }
 
 module.exports = API;

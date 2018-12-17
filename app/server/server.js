@@ -1,34 +1,9 @@
 const express = require('express');
-const spawn = require('child_process');
-const execFile = spawn.execFile;
 const app = express();
+const API = require('../data-extraction/API');
 
 const PORT = 3000;
-
-async function asyncExec(command, args) {
-    return new Promise((resolve, reject) => {
-        execFile(command, args, {maxBuffer: 1024 * 10000}, (error, stdout, stderr) => {
-            if (error)
-                reject(error);
-            else
-                resolve(stdout);
-        })
-    });
-}
-
-/**
- * @TODO document
- *
- * @param type
- * @param start
- * @param end
- * @returns {Promise<string>}
- */
-async function fetchType(type, start, end) {
-    const stdout = await asyncExec('python3', ['-m', 'app.preprocessing.api', Math.floor(start), Math.floor(end), type]);
-    return JSON.parse(stdout);
-}
-
+const api = new API();
 
 app.get('/api', async (req, res) => {
 
@@ -44,11 +19,10 @@ app.get('/api', async (req, res) => {
     // fetch data
     try {
         const data = {
-            'export': fetchType('export', start, end),
-            'mentions': fetchType('export', start, end)
+            result: await api.getMentions(start, end),
+            ok: Date.now()
         };
-        data.export = await data.export;
-        data.mentions = await data.mentions;
+
         res.send(JSON.stringify(data));
     } catch (e) {
 
@@ -56,4 +30,6 @@ app.get('/api', async (req, res) => {
     }
 });
 
-app.listen(PORT, () => console.log(`Example app listening on port ${PORT}!`));
+api.init().then(() => {
+    app.listen(PORT, () => console.log(`Example app listening on port ${PORT}!`));
+});
