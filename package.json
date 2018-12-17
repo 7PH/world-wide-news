@@ -52,7 +52,6 @@
   "dependencies": {
     "express": "^4.16.4",
     "js-crawler": "^0.3.21",
-    "promise-mysql": "^3.3.1",
-    "sqlite": "^3.0.0"
+    "promise-mysql": "^3.3.1"
   }
 }
