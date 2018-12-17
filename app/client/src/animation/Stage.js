@@ -8,48 +8,38 @@ import {APIHelper} from "../api/APIHelper";
 export class Stage {
 
     constructor() {
-        throw new Error("Utility class, non instantiable");
+
     }
 
     async addAllPoints(loader, globe, radius, start, end) {
 
+        console.time('addAllPoints');
+
         try {
             const data = await APIHelper.fetch(start, end);
-            for (let event of data['export']) {
+            for (let event of data) {
 
                 if (Math.random() < .2)
                     this.addPoint(
                         loader,
                         globe,
                         radius,
-                        event.ActionGeo_Lat,
-                        event.ActionGeo_Long
+                        event.lat,
+                        event.long
                     );
             }
 
         } catch (e) {
             console.error(e);
         }
+
+        console.timeEnd('addAllPoints');
     }
 
     addPoint(loader, globe, radius, latitude, longitude) {
 
         const pointRadius = 0.005 * radius;
         const pointGeometry = new THREE.SphereGeometry(pointRadius, 32, 32);
-        const customMaterial = new THREE.ShaderMaterial({
-            uniforms:
-                {
-                    "c":   { type: "f", value: 0.05 },
-                    "p":   { type: "f", value: 4.5 },
-                    glowColor: { type: "c", value: new THREE.Color(0x666600) },
-                    viewVector: { type: "v3", value: this.camera.position }
-                },
-            vertexShader:   document.getElementById("vertexShader").textContent,
-            fragmentShader: document.getElementById("fragmentShader").textContent,
-            side: THREE.FrontSide,
-            blending: THREE.AdditiveBlending,
-            transparent: true
-        });
         const material = new THREE.MeshBasicMaterial({color: 0xffff00});
         const point = new THREE.Mesh(pointGeometry.clone(), material.clone());
         const coords = lat2xyz(latitude, longitude);
@@ -57,13 +47,6 @@ export class Stage {
         point.position.y = coords.y * radius + 1.5 * pointRadius;
         point.position.z = coords.z * radius + 1.5 * pointRadius;
         globe.add(point);
-
-        const glow = new THREE.Mesh(pointGeometry.clone(), customMaterial.clone());
-        glow.position.x = point.position.x;
-        glow.position.y = point.position.y;
-        glow.position.z = point.position.z;
-        glow.scale.multiplyScalar(1.8);
-        globe.add(glow);
     }
 
     async start() {
@@ -127,12 +110,12 @@ export class Stage {
 
         // point
         this.addPoint(loader, globe, RADIUS, LAUSANNE.latitude, LAUSANNE.longitude);
-        await this.addAllPoints(loader, globe, RADIUS, 1513109407, 1513109807);
+        await this.addAllPoints(loader, globe, RADIUS, 1475280000, 1475281000);
 
         let rotationVelocity = 10;
 
         let lastUpdate = Date.now();
-        function render() {
+        const render = () => {
             let currUpdate = Date.now();
             const delta = (currUpdate - lastUpdate) * 0.001;
 
@@ -143,8 +126,9 @@ export class Stage {
 
             renderer.render(scene, this.camera);
             lastUpdate = currUpdate;
-            requestAnimationFrame(render);
-        }
+            requestAnimationFrame(() => render());
+        };
+
         render();
     }
 }

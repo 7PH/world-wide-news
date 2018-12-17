@@ -18,12 +18,8 @@ app.get('/api', async (req, res) => {
 
     // fetch data
     try {
-        const data = {
-            result: await api.getMentions(start, end),
-            ok: Date.now()
-        };
 
-        res.send(JSON.stringify(data));
+        res.send(JSON.stringify(await api.getMentions(start, end)));
     } catch (e) {
 
         res.send({"error": e.toString()});

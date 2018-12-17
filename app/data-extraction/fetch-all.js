@@ -7,7 +7,7 @@ const Helpers = require('./Helpers');
     await api.init();
 
     // fetch master
-    // await api.updateMaster();
+    await api.updateMaster();
 
     // fetch unfetched
 
