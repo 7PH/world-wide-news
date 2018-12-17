@@ -16,7 +16,8 @@ class Storage {
         if (typeof this.db !== "undefined")
             return;
 
-        this.db = await mysql.createConnection({
+        this.db = await mysql.createPool({
+            connectionLimit: 64,
             host: Storage.DB_HOST,
             user: Storage.DB_USER,
             password: Storage.DB_PASSWORD,
