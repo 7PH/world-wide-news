@@ -8,7 +8,8 @@ function gotoContent() {
     document.getElementById("page-intro").style.display = "none";
     document.getElementById("page-content").classList.remove("hidden");
 
-    Stage.start();
+    new Stage()
+        .start();
 }
 
 window.addEventListener("load", async () => {

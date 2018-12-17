@@ -11,14 +11,14 @@ export class Stage {
         throw new Error("Utility class, non instantiable");
     }
 
-    static async addAllPoints(loader, globe, radius, start, end) {
+    async addAllPoints(loader, globe, radius, start, end) {
 
         try {
             const data = await APIHelper.fetch(start, end);
             for (let event of data['export']) {
 
                 if (Math.random() < .2)
-                    Stage.addPoint(
+                    this.addPoint(
                         loader,
                         globe,
                         radius,
@@ -32,7 +32,7 @@ export class Stage {
         }
     }
 
-    static addPoint(loader, globe, radius, latitude, longitude) {
+    addPoint(loader, globe, radius, latitude, longitude) {
 
         const pointRadius = 0.005 * radius;
         const pointGeometry = new THREE.SphereGeometry(pointRadius, 32, 32);
@@ -42,7 +42,7 @@ export class Stage {
                     "c":   { type: "f", value: 0.05 },
                     "p":   { type: "f", value: 4.5 },
                     glowColor: { type: "c", value: new THREE.Color(0x666600) },
-                    viewVector: { type: "v3", value: Stage.camera.position }
+                    viewVector: { type: "v3", value: this.camera.position }
                 },
             vertexShader:   document.getElementById("vertexShader").textContent,
             fragmentShader: document.getElementById("fragmentShader").textContent,
@@ -66,7 +66,7 @@ export class Stage {
         globe.add(glow);
     }
 
-    static async start() {
+    async start() {
         const renderer = new THREE.WebGLRenderer();
         const WIDTH = window.innerWidth;
         const HEIGHT = window.innerHeight;
@@ -77,13 +77,13 @@ export class Stage {
         const ASPECT = WIDTH / HEIGHT;
         const NEAR = 0.1;
         const FAR = 10000;
-        Stage.camera = new THREE.PerspectiveCamera(VIEW_ANGLE, ASPECT, NEAR, FAR);
-        Stage.camera.position.set(0, 0, - 1000);
+        this.camera = new THREE.PerspectiveCamera(VIEW_ANGLE, ASPECT, NEAR, FAR);
+        this.camera.position.set(0, 0, - 1000);
 
         // scene
         const scene = new THREE.Scene();
         scene.background = new THREE.Color(0x000000);
-        scene.add(Stage.camera);
+        scene.add(this.camera);
         document.getElementById("animation").appendChild(renderer.domElement);
 
         // sphere
@@ -115,7 +115,7 @@ export class Stage {
         });
 
         // controls
-        const orbitControls = new THREE.OrbitControls(Stage.camera, document.getElementById("animation"));
+        const orbitControls = new THREE.OrbitControls(this.camera, document.getElementById("animation"));
         orbitControls.update();
 
         // light
@@ -126,8 +126,8 @@ export class Stage {
         scene.add(pointLight);
 
         // point
-        Stage.addPoint(loader, globe, RADIUS, LAUSANNE.latitude, LAUSANNE.longitude);
-        await Stage.addAllPoints(loader, globe, RADIUS, 1513109407, 1513109807);
+        this.addPoint(loader, globe, RADIUS, LAUSANNE.latitude, LAUSANNE.longitude);
+        await this.addAllPoints(loader, globe, RADIUS, 1513109407, 1513109807);
 
         let rotationVelocity = 10;
 
@@ -141,7 +141,7 @@ export class Stage {
             galaxy.rotation.y += 0.004 * delta;
             orbitControls.update();
 
-            renderer.render(scene, Stage.camera);
+            renderer.render(scene, this.camera);
             lastUpdate = currUpdate;
             requestAnimationFrame(render);
         }
