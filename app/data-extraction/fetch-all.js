@@ -6,6 +6,9 @@ const Helpers = require('./Helpers');
     let api = new API();
     await api.init();
 
+    // truncate
+    //await api.truncate();
+
     // fetch master
     await api.updateMaster();
 

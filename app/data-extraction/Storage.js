@@ -164,13 +164,17 @@ class Storage {
      * @return {Promise<*>}
      */
     async insertMention(entry) {
-        return this
-            .db
-            .query(`INSERT INTO ${Storage.TABLE_MENTIONS}
-                    (\`event\`, \`tms\`, \`name\`, \`confidence\`, \`tone\`)
-                    VALUES (?, ?, ?, ?, ?)
-                    ON DUPLICATE KEY UPDATE id=id`,
-                [entry.event, entry.tms, entry.name, entry.confidence, entry.tone]);
+        try {
+            return await this
+                .db
+                .query(`INSERT INTO ${Storage.TABLE_MENTIONS}
+                        (\`event\`, \`tms\`, \`name\`, \`confidence\`, \`tone\`)
+                        VALUES (?, ?, ?, ?, ?)
+                        ON DUPLICATE KEY UPDATE id=id`,
+                    [entry.event, entry.tms, entry.name, entry.confidence, entry.tone]);
+        } catch (e) {
+            return null;
+        }
     }
 
     /**
