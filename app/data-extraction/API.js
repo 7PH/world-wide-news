@@ -61,7 +61,7 @@ class API {
                     await this.storage.insertMentions(compressed);
                 }
 
-                await this.storage.markFetched(masterEntry.type, masterEntry.date);
+                await this.storage.markFetched(masterEntry.type, masterEntry.tms);
                 resolve();
             });
         });
