@@ -1,4 +1,8 @@
+const GDelt = require('./GDelt');
 
+/**
+ * @TODO refactor: extract method
+ */
 class Helpers {
 
     /**
@@ -9,22 +13,42 @@ class Helpers {
         const filtered = {};
         Helpers.EXPORT_KEEP_COLUMNS.forEach(column =>
             filtered[column[1]] = entry[column[0]]);
+        filtered.tms = GDelt.gdeltToDate(filtered.tms).getTime() / 1000;
         return filtered;
     }
 
+    /**
+     *
+     * @param entry
+     */
+    static compressMentions(entry) {
+        const filtered = {};
+        Helpers.MENTIONS_KEEP_COLUMNS.forEach(column =>
+            filtered[column[1]] = entry[column[0]]);
+        filtered.tms = GDelt.gdeltToDate(filtered.tms).getTime() / 1000;
+        return filtered;
+    }
 }
 
 Helpers.EXPORT_KEEP_COLUMNS = [
-    ['GlobalEventID',   'id'],
+    ['GlobalEventId',   'id'],
     ['ActionGeo_Lat',   'lat'],
     ['ActionGeo_Long',  'long'],
     ['GoldsteinScale',  'goldstein'],
     ['NumMentions',     'num_mentions'],
-    ['DateAdded',       'date_added'],
+    ['DateAdded',       'tms'],
     ['SourceURL',       'source_url']
 ];
 
-Helpers.START_TIMESTAMP = 1475280000;
-Helpers.END_TIMESTAMP = 1480550400;
+Helpers.MENTIONS_KEEP_COLUMNS = [
+    ['GlobalEventId',       'event'],
+    ['MentionTimeDate',     'tms'],
+    ['MentionSourceName',   'name'],
+    ['Confidence',          'confidence'],
+    ['MentionDocTone',      'tone'],
+];
+
+Helpers.START_DATE = new Date(1475280000000);
+Helpers.END_DATE = new Date(1480550400000);
 
 module.exports = Helpers;
