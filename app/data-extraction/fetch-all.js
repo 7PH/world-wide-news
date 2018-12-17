@@ -5,10 +5,9 @@ const WORKERS = 32;
 
 const worker = async (api, jobs) => {
 
-    if (jobs.length === 0)
-        return;
-
     let job = jobs.shift();
+    if (typeof job === "undefined")
+        return;
     console.log(job.url);
     await api.fetch(job);
     await worker(api, jobs);
