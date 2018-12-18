@@ -22,25 +22,27 @@ export class Stage {
         for (let i = this.dots.children.length - 1; i >= 0; --i)
             this.dots.remove(this.dots.children[i]);
 
+        // prepare
+        const pointGeometry = new THREE.SphereGeometry(this.dotRadius, 32, 32);
+        const material = new THREE.MeshBasicMaterial({color: 0xffff00});
+        const dot = new THREE.Mesh(pointGeometry.clone(), material.clone());
+
         // retrieve dots again
         try {
             const data = await APIHelper.fetch(start, end);
-            for (let event of data)
-                if (Math.random() < .01)
-                    this.addDot(event.lat + 0.1 * (Math.random() - .5), event.long + 0.1 * (Math.random() - .5));
+            for (let event of data) {
+                let instance = dot.clone();
+                const coords = lat2xyz(event.lat, event.long);
+                instance.position.x = coords.x * this.globeRadius + 1.5 * this.dotRadius;
+                instance.position.y = coords.y * this.globeRadius + 1.5 * this.dotRadius;
+                instance.position.z = coords.z * this.globeRadius + 1.5 * this.dotRadius;
+                this.dots.add(instance);
+            }
         } catch (e) { console.error(e); }
     }
 
     addDot(latitude, longitude) {
-
-        const pointGeometry = new THREE.SphereGeometry(this.dotRadius, 32, 32);
-        const material = new THREE.MeshBasicMaterial({color: 0xffff00});
-        const point = new THREE.Mesh(pointGeometry.clone(), material.clone());
-        const coords = lat2xyz(latitude, longitude);
-        point.position.x = coords.x * this.globeRadius + 1.5 * this.dotRadius;
-        point.position.y = coords.y * this.globeRadius + 1.5 * this.dotRadius;
-        point.position.z = coords.z * this.globeRadius + 1.5 * this.dotRadius;
-        this.dots.add(point);
+        // @TODO remove
     }
 
     async start() {
