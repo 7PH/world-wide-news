@@ -44,7 +44,7 @@ export class Controller {
         await this.view.start();
 
         if (this.autoplay)
-            setTimeout(() => this.playTimeline(), 100);
+            setTimeout(() => this.playTimeline(), 0);
     }
 
     /**
@@ -56,7 +56,7 @@ export class Controller {
         const v = +this.view.timeline.value + +this.view.timeline.step;
         await this.setTimeline(v);
         if (this.autoplay && this.view.timeline.value < 1)
-            setTimeout(() => this.playTimeline(), 100);
+            setTimeout(() => this.playTimeline(), 0);
     }
 
     /**

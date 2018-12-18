@@ -1,15 +1,48 @@
 import * as THREE from "three";
 import {lat2xyz} from "../util/maths";
-import {LAUSANNE, PHILLY} from "../util/coords";
-import {APIHelper} from "../api/APIHelper";
 
 
 export class Stage {
 
     constructor() {
 
+        this.renderer = new THREE.WebGLRenderer();
+        this.particleSystem = new THREE.GPUParticleSystem({
+            maxParticles: 250000
+        });
+        this.particleOptions = {
+            position: new THREE.Vector3(),
+            positionRandomness: .3,
+            velocity: new THREE.Vector3(),
+            velocityRandomness: .5,
+            color: 0xaa88ff,
+            colorRandomness: .2,
+            turbulence: .5,
+            lifetime: 2,
+            size: 5,
+            sizeRandomness: 1
+        };
+        this.particleSpawnerOptions = {
+            spawnRate: 15000,
+            horizontalSpeed: 1.5,
+            verticalSpeed: 1.33,
+            timeScale: 1
+        };
+
+        this.scene = new THREE.Scene();
+
+        this.galaxyGeometry = new THREE.SphereGeometry(6000, 64, 64);
+        this.galaxyMaterial = new THREE.MeshBasicMaterial({side: THREE.BackSide});
+        this.galaxy = new THREE.Mesh(this.galaxyGeometry, this.galaxyMaterial);
+
+        this.globe = new THREE.Group();
+        this.globeRotationVelocity = 10;
         this.globeRadius = 200;
+
         this.dotRadius = 0.004 * this.globeRadius;
+
+        this.tick = 0;
+        this.lastUpdate = Date.now();
     }
 
     /**
@@ -25,7 +58,7 @@ export class Stage {
 
         // prepare
         const pointGeometry = new THREE.SphereGeometry(this.dotRadius, 32, 32);
-        const material = new THREE.MeshBasicMaterial({color: 0xffff00});
+        const material = new THREE.MeshBasicMaterial({color: 0x665588});
         const dot = new THREE.Mesh(pointGeometry.clone(), material.clone());
 
         // retrieve dots again
@@ -42,10 +75,9 @@ export class Stage {
     }
 
     async start() {
-        const renderer = new THREE.WebGLRenderer();
         const WIDTH = window.innerWidth;
         const HEIGHT = window.innerHeight;
-        renderer.setSize(WIDTH, HEIGHT);
+        this.renderer.setSize(WIDTH, HEIGHT);
 
         // camera
         const VIEW_ANGLE = 45;
@@ -56,33 +88,30 @@ export class Stage {
         this.camera.position.set(0, 0, - 1000);
 
         // scene
-        const scene = new THREE.Scene();
-        scene.background = new THREE.Color(0x000000);
-        scene.add(this.camera);
-        document.getElementById("animation").appendChild(renderer.domElement);
+        this.scene.background = new THREE.Color(0x000000);
+        this.scene.add(this.camera);
+        document.getElementById("animation").appendChild(this.renderer.domElement);
+
+        // particles
+        this.globe.add(this.particleSystem);
 
         // sphere
         const SEGMENTS = 50;
         const RINGS = 50;
-        const globe = new THREE.Group();
-        this.globe = globe;
-        scene.add(globe);
+        this.scene.add(this.globe);
 
         // dot group
         this.dots = new THREE.Group();
-        globe.add(this.dots);
+        this.globe.add(this.dots);
 
         // point on the sphere
         const loader = new THREE.TextureLoader();
 
         // starfield
-        let galaxyGeometry = new THREE.SphereGeometry(6000, 64, 64);
-        let galaxyMaterial = new THREE.MeshBasicMaterial({side: THREE.BackSide});
-        let galaxy = new THREE.Mesh(galaxyGeometry, galaxyMaterial);
         loader.load("textures/starfield.png", texture => {
 
-            galaxyMaterial.map = texture;
-            scene.add(galaxy);
+            this.galaxyMaterial.map = texture;
+            this.scene.add(this.galaxy);
         });
 
         loader.load("textures/earth.jpg", texture => {
@@ -90,37 +119,44 @@ export class Stage {
             const sphere = new THREE.SphereGeometry(this.globeRadius, SEGMENTS, RINGS);
             const material = new THREE.MeshBasicMaterial({map: texture});
             const mesh = new THREE.Mesh(sphere, material);
-            globe.add(mesh);
+            this.globe.add(mesh);
         });
 
         // controls
-        const orbitControls = new THREE.OrbitControls(this.camera, document.getElementById("animation"));
-        orbitControls.update();
+        this.orbitControls = new THREE.OrbitControls(
+            this.camera,
+            document.getElementById("animation"));
+        this.orbitControls.update();
 
         // light
         const pointLight =  new THREE.AmbientLight(0x404040);
         pointLight.position.x = 10;
         pointLight.position.y = 50;
         pointLight.position.z = 400;
-        scene.add(pointLight);
+        this.scene.add(pointLight);
 
-        let rotationVelocity = 10;
+        this.render();
+    }
 
-        let lastUpdate = Date.now();
-        const render = () => {
-            let currUpdate = Date.now();
-            const delta = (currUpdate - lastUpdate) * 0.001;
+    render() {
+        let currUpdate = Date.now();
+        const delta = (currUpdate - this.lastUpdate) * 0.001;
+        this.tick += delta;
 
-            rotationVelocity += - .85 * rotationVelocity * delta;
-            globe.rotation.y += rotationVelocity * delta;
-            galaxy.rotation.y += 0.004 * delta;
-            orbitControls.update();
+        this.globeRotationVelocity += - .85 * this.globeRotationVelocity * delta;
+        this.globe.rotation.y += this.globeRotationVelocity * delta;
+        this.galaxy.rotation.y += 0.004 * delta;
 
-            renderer.render(scene, this.camera);
-            lastUpdate = currUpdate;
-            requestAnimationFrame(() => render());
-        };
+        for (let dot of this.dots.children) {
+            this.particleOptions.position = dot.position;
+            this.particleSystem.spawnParticle(this.particleOptions);
+        }
 
-        render();
+        this.orbitControls.update();
+        this.particleSystem.update(this.tick);
+
+        this.renderer.render(this.scene, this.camera);
+        this.lastUpdate = currUpdate;
+        requestAnimationFrame(() => this.render());
     }
 }
