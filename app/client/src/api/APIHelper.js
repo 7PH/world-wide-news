@@ -4,7 +4,6 @@ export class APIHelper {
     /**
      * Retrieve the url of the end point
      *
-     * @param type
      * @param start
      * @param end
      * @return {string}

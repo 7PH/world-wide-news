@@ -4,49 +4,43 @@ import {LAUSANNE, PHILLY} from "../util/coords";
 import {APIHelper} from "../api/APIHelper";
 
 
-
 export class Stage {
 
     constructor() {
 
+        this.globeRadius = 200;
+        this.dotRadius = 0.008 * this.globeRadius;
     }
 
-    async addAllPoints(loader, globe, radius, start, end) {
+    async loadPointsFrom(start) {
+        return this.addAllDots(start, start + 901);
+    }
 
-        console.time('addAllPoints');
+    async addAllDots(start, end) {
 
+        // empty dots
+        for (let i = this.dots.children.length - 1; i >= 0; --i)
+            this.dots.remove(this.dots.children[i]);
+
+        // retrieve dots again
         try {
             const data = await APIHelper.fetch(start, end);
-            for (let event of data) {
-
-                if (Math.random() < .2)
-                    this.addPoint(
-                        loader,
-                        globe,
-                        radius,
-                        event.lat,
-                        event.long
-                    );
-            }
-
-        } catch (e) {
-            console.error(e);
-        }
-
-        console.timeEnd('addAllPoints');
+            for (let event of data)
+                if (Math.random() < .01)
+                    this.addDot(event.lat + 0.1 * (Math.random() - .5), event.long + 0.1 * (Math.random() - .5));
+        } catch (e) { console.error(e); }
     }
 
-    addPoint(loader, globe, radius, latitude, longitude) {
+    addDot(latitude, longitude) {
 
-        const pointRadius = 0.005 * radius;
-        const pointGeometry = new THREE.SphereGeometry(pointRadius, 32, 32);
+        const pointGeometry = new THREE.SphereGeometry(this.dotRadius, 32, 32);
         const material = new THREE.MeshBasicMaterial({color: 0xffff00});
         const point = new THREE.Mesh(pointGeometry.clone(), material.clone());
         const coords = lat2xyz(latitude, longitude);
-        point.position.x = coords.x * radius + 1.5 * pointRadius;
-        point.position.y = coords.y * radius + 1.5 * pointRadius;
-        point.position.z = coords.z * radius + 1.5 * pointRadius;
-        globe.add(point);
+        point.position.x = coords.x * this.globeRadius + 1.5 * this.dotRadius;
+        point.position.y = coords.y * this.globeRadius + 1.5 * this.dotRadius;
+        point.position.z = coords.z * this.globeRadius + 1.5 * this.dotRadius;
+        this.dots.add(point);
     }
 
     async start() {
@@ -70,11 +64,15 @@ export class Stage {
         document.getElementById("animation").appendChild(renderer.domElement);
 
         // sphere
-        const RADIUS = 200;
         const SEGMENTS = 50;
         const RINGS = 50;
         const globe = new THREE.Group();
+        this.globe = globe;
         scene.add(globe);
+
+        // dot group
+        this.dots = new THREE.Group();
+        globe.add(this.dots);
 
         // point on the sphere
         const loader = new THREE.TextureLoader();
@@ -91,7 +89,7 @@ export class Stage {
 
         loader.load("textures/earth.jpg", texture => {
 
-            const sphere = new THREE.SphereGeometry(RADIUS, SEGMENTS, RINGS);
+            const sphere = new THREE.SphereGeometry(this.globeRadius, SEGMENTS, RINGS);
             const material = new THREE.MeshBasicMaterial({map: texture});
             const mesh = new THREE.Mesh(sphere, material);
             globe.add(mesh);
@@ -109,8 +107,8 @@ export class Stage {
         scene.add(pointLight);
 
         // point
-        this.addPoint(loader, globe, RADIUS, LAUSANNE.latitude, LAUSANNE.longitude);
-        await this.addAllPoints(loader, globe, RADIUS, 1475280000, 1475281000);
+        this.addDot(LAUSANNE.latitude, LAUSANNE.longitude);
+        await this.loadPointsFrom(1475280000);
 
         let rotationVelocity = 10;
 
