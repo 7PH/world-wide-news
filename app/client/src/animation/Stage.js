@@ -12,11 +12,12 @@ export class Stage {
         this.dotRadius = 0.008 * this.globeRadius;
     }
 
-    async loadPointsFrom(start) {
-        return this.addAllDots(start, start + 900 * 4 + 1);
-    }
-
-    async addAllDots(start, end) {
+    /**
+     *
+     * @param {{lat: number, long: number}[]} points
+     * @return {Promise<void>}
+     */
+    async addDots(points) {
 
         // empty dots
         for (let i = this.dots.children.length - 1; i >= 0; --i)
@@ -29,8 +30,7 @@ export class Stage {
 
         // retrieve dots again
         try {
-            const data = await APIHelper.fetch(start, end);
-            for (let event of data) {
+            for (let event of points) {
                 let instance = dot.clone();
                 const coords = lat2xyz(event.lat, event.long);
                 instance.position.x = coords.x * this.globeRadius + 1.5 * this.dotRadius;
@@ -39,10 +39,6 @@ export class Stage {
                 this.dots.add(instance);
             }
         } catch (e) { console.error(e); }
-    }
-
-    addDot(latitude, longitude) {
-        // @TODO remove
     }
 
     async start() {
@@ -107,10 +103,6 @@ export class Stage {
         pointLight.position.y = 50;
         pointLight.position.z = 400;
         scene.add(pointLight);
-
-        // point
-        this.addDot(LAUSANNE.latitude, LAUSANNE.longitude);
-        await this.loadPointsFrom(1475280000);
 
         let rotationVelocity = 10;
 
