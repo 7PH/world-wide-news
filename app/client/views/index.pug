@@ -53,6 +53,6 @@ html
                             input(id=`wd-${index}`, type="radio", name="timeline-window", value=item.value)
                             label(for=`wd-${index}`)= item.title
                 div#timeline-bloc
-                    input#timeline-range(type="range", min="0", max="1", step="0.01")
+                    input#timeline-range(type="range", disabled="true", min="0", max="1", step="0.01", value="0")
 
         include includes/bottom

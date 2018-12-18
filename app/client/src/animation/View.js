@@ -13,6 +13,7 @@ export class View extends EventEmitter {
         super();
 
         this.model = model;
+        this.timeline = document.getElementById(View.TIMELINE_RANGE_ID);
         this.setTimeline = null;
         this.stage = new Stage();
         this.bind();

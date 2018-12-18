@@ -40,6 +40,16 @@ export class Controller {
         document.getElementById("page-content").classList.remove("hidden");
 
         await this.view.start();
+
+        setTimeout(() => this.playTimeline(), 100);
+    }
+
+    async playTimeline() {
+
+        const v = +this.view.timeline.value + +this.view.timeline.step;
+        await this.setTimeline(v);
+        if (this.view.timeline.value < 1)
+            setTimeout(() => this.playTimeline(), 100);
     }
 
     /**
@@ -51,6 +61,17 @@ export class Controller {
     }
 
     /**
+     * Manually override the timeline value
+     *
+     * @param v
+     * @return {Promise<void>}
+     */
+    async setTimeline(v) {
+        this.view.setTimeline(v);
+        await this.onTimelineUpdate(v);
+    }
+
+    /**
      * When the timeline is manually updated
      *
      * @param v
@@ -58,7 +79,7 @@ export class Controller {
     async onTimelineUpdate(v) {
 
         const start = scale(v, Helpers.START_TMS, Helpers.END_TMS);
-        const duration = 901;
+        const duration = 901; //@TODO refactor: hardcoded
         await this.model.setWindow(start, start + duration);
     }
 }
