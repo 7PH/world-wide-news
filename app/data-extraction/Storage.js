@@ -188,7 +188,8 @@ class Storage {
         return this
             .db
             .query(`SELECT
-                        m.*,
+                        m.id,
+                        m.event,
                         e.lat,
                         e.long,
                         e.tms as event_tms

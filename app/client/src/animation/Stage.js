@@ -13,7 +13,7 @@ export class Stage {
     }
 
     async loadPointsFrom(start) {
-        return this.addAllDots(start, start + 901);
+        return this.addAllDots(start, start + 900 * 4 + 1);
     }
 
     async addAllDots(start, end) {
