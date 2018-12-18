@@ -72,10 +72,12 @@ class API {
      *
      * @param {number} start
      * @param {number} end
+     * @param {number} offset
+     * @param {number} n
      * @return {Promise<any[]>}
      */
-    async getMentions(start, end) {
-        return this.storage.getMentions(start, end);
+    async getMentions(start, end, offset, n) {
+        return this.storage.getMentions(start, end, 0, n);
     }
 }
 

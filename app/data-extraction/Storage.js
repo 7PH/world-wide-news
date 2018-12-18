@@ -182,9 +182,11 @@ class Storage {
      *
      * @param {number} start timestamp (sec)
      * @param {number} end timestamp (sec)
+     * @param {number} offset
+     * @param {number} n
      * @return {Promise<any[]>}
      */
-    getMentions(start, end) {
+    getMentions(start, end, offset, n) {
         return this
             .db
             .query(`SELECT
@@ -195,8 +197,9 @@ class Storage {
                         e.tms as event_tms
                     FROM ${Storage.TABLE_MENTIONS} as m
                     INNER JOIN \`${Storage.TABLE_EXPORT}\` AS e ON e.id = m.event
-                    WHERE m.tms>? AND m.tms<?`,
-                [start, end]);
+                    WHERE m.tms>? AND m.tms<?
+                    LIMIT ?, ?`,
+                [start, end, offset, n]);
     }
 
     /**

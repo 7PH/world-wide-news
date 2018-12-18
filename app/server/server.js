@@ -19,7 +19,7 @@ app.get('/api', async (req, res) => {
     // fetch data
     try {
 
-        res.send(JSON.stringify(await api.getMentions(start, end)));
+        res.send(JSON.stringify(await api.getMentions(start, end, 0, 1000)));
     } catch (e) {
 
         res.send({"error": e.toString()});
