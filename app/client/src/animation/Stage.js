@@ -14,7 +14,7 @@ export class Stage {
             position: new THREE.Vector3(),
             positionRandomness: .3,
             velocity: new THREE.Vector3(),
-            velocityRandomness: .5,
+            velocityRandomness: .1,
             color: 0xaa88ff,
             colorRandomness: .2,
             turbulence: .5,
@@ -117,7 +117,9 @@ export class Stage {
         loader.load("textures/earth.edited.jpg", texture => {
 
             const sphere = new THREE.SphereGeometry(this.globeRadius, SEGMENTS, RINGS);
-            const material = new THREE.MeshBasicMaterial({map: texture});
+            const material = new THREE.MeshBasicMaterial({
+                map: texture
+            });
             const mesh = new THREE.Mesh(sphere, material);
             this.globe.add(mesh);
         });
