@@ -39,7 +39,7 @@ export class Stage {
         this.globeRotationVelocity = 10;
         this.globeRadius = 200;
 
-        this.dotRadius = 0.004 * this.globeRadius;
+        this.dotRadius = 0.002 * this.globeRadius;
 
         this.tick = 0;
         this.lastUpdate = Date.now();
@@ -114,7 +114,7 @@ export class Stage {
             this.scene.add(this.galaxy);
         });
 
-        loader.load("textures/earth.jpg", texture => {
+        loader.load("textures/earth.edited.jpg", texture => {
 
             const sphere = new THREE.SphereGeometry(this.globeRadius, SEGMENTS, RINGS);
             const material = new THREE.MeshBasicMaterial({map: texture});
@@ -149,6 +149,9 @@ export class Stage {
 
         for (let dot of this.dots.children) {
             this.particleOptions.position = dot.position;
+            this.particleOptions.velocity.x = (Math.random() - .5) * 1.5;
+            this.particleOptions.velocity.y = (Math.random() - .5) * 1.5;
+            this.particleOptions.velocity.z = (Math.random() - .5) * 1.5;
             this.particleSystem.spawnParticle(this.particleOptions);
         }
 
