@@ -11,6 +11,8 @@ export class Controller {
 
         this.model = new Model();
         this.view = new View(this.model);
+
+        this.autoplay = true;
     }
 
     /**
@@ -41,22 +43,28 @@ export class Controller {
 
         await this.view.start();
 
-        setTimeout(() => this.playTimeline(), 100);
+        if (this.autoplay)
+            setTimeout(() => this.playTimeline(), 100);
     }
 
+    /**
+     *
+     * @return {Promise<void>}
+     */
     async playTimeline() {
 
         const v = +this.view.timeline.value + +this.view.timeline.step;
         await this.setTimeline(v);
-        if (this.view.timeline.value < 1)
+        if (this.autoplay && this.view.timeline.value < 1)
             setTimeout(() => this.playTimeline(), 100);
     }
 
     /**
      * Bind view
+     *
+     * @private
      */
     bind() {
-
         this.view.on('timeline_update', v => this.onTimelineUpdate(v))
     }
 
@@ -68,7 +76,9 @@ export class Controller {
      */
     async setTimeline(v) {
         this.view.setTimeline(v);
-        await this.onTimelineUpdate(v);
+        const start = scale(v, Helpers.START_TMS, Helpers.END_TMS);
+        const duration = 901; //@TODO refactor: hardcoded
+        await this.model.setWindow(start, start + duration);
     }
 
     /**
@@ -78,6 +88,7 @@ export class Controller {
      */
     async onTimelineUpdate(v) {
 
+        this.autoplay = false;
         const start = scale(v, Helpers.START_TMS, Helpers.END_TMS);
         const duration = 901; //@TODO refactor: hardcoded
         await this.model.setWindow(start, start + duration);

@@ -9,7 +9,7 @@ export class Stage {
     constructor() {
 
         this.globeRadius = 200;
-        this.dotRadius = 0.008 * this.globeRadius;
+        this.dotRadius = 0.004 * this.globeRadius;
     }
 
     /**
