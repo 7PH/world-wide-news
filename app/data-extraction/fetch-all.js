@@ -1,7 +1,7 @@
 const API = require("./API");
 const Helpers = require('./Helpers');
 
-const WORKERS = 32;
+const WORKERS = 8;
 
 const worker = async (api, jobs) => {
 
@@ -11,6 +11,7 @@ const worker = async (api, jobs) => {
     console.log(job.url);
     await api.fetch(job);
     await worker(api, jobs);
+    return job;
 };
 
 

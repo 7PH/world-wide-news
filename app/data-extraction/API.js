@@ -48,7 +48,7 @@ class API {
      * @return {Promise<any>}
      */
     async fetch(masterEntry) {
-        return new Promise(resolve => {
+        return new Promise((resolve, reject) => {
             this.crawler.crawl(masterEntry.url, async page => {
 
                 const raw = await GDelt.unzip(page.response.body);
@@ -63,7 +63,7 @@ class API {
 
                 await this.storage.markFetched(masterEntry.type, masterEntry.tms);
                 resolve();
-            });
+            }, reject);
         });
     }
 
