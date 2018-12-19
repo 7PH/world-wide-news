@@ -42,11 +42,14 @@ html
 
         section#page-content.page.hidden
             div#animation
-            div#timeline
+            div#timeline.timeline-hidden
                 div#timeline-controls
                     div.timeline-controls
                         input(id=`timeline-autoplay`, type="checkbox", name="timeline-autoplay", value='true', checked="checked")
-                        label(for=`timeline-autoplay`) AutoPlay
+                        label(for=`timeline-autoplay`) autoplay
+                    div.timeline-controls
+                        input(id=`timeline-music`, type="checkbox", name="timeline-music", value='true', checked="checked")
+                        label(for=`timeline-music`) audio
                 div#timeline-bloc
                     div#timeline-hud
                         div#timeline-info

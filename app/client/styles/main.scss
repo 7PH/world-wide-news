@@ -16,6 +16,7 @@ html, body {
 
 body {
     position: relative;
+    cursor: url(img/cursor.png) 0 0, auto
 }
 
 .hidden {
@@ -36,7 +37,7 @@ body {
     top: 0;
     left: 0;
     z-index: 10;
-    transition: opacity 6s;
+    transition: opacity 4s;
 }
 
 #page-content {
@@ -58,6 +59,8 @@ body {
 }
 
 #timeline {
+    transition: all 2s;
+    font-family: 'Major Mono Display', monospace;
     margin-top: calc(100vh - 180px);
     background-color: #11111199;
 
@@ -78,7 +81,6 @@ body {
         }
 
         label {
-
             cursor: pointer;
             border: 1px solid #424a88;
             display: inline-block;
@@ -86,6 +88,7 @@ body {
             background-color: #15161b;
             margin-left: 20px;
             border-radius: 2px;
+            transition: all .4s;
         }
 
         input[type="checkbox"]:checked + label {
@@ -101,7 +104,6 @@ body {
         width: calc(100% - 120px);
 
         #timeline-hud {
-            font-family: 'Major Mono Display', monospace;
             height: 30px;
             color: white;
             text-align: center;
@@ -170,4 +172,8 @@ body {
             }
         }
     }
+}
+
+#timeline.timeline-hidden {
+    opacity: 0;
 }

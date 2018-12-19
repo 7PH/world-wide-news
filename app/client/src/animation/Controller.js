@@ -41,17 +41,17 @@ export class Controller {
 
         setTimeout(() => {
             document.getElementById('page-intro').classList.add('hidden');
-        }, 6 * 1000);
+            this.view.timeline.classList.remove('timeline-hidden');
+        }, Controller.FADE_DURATION);
 
         document.getElementById("page-intro").style.opacity = "0";
         document.getElementById("page-content").classList.remove("hidden");
 
+        this.view.playAudio();
         await this.view.start();
 
         if (this.autoplay)
-            setTimeout(() => this.playTimeline(), Controller.TIMELINE_SPEED);
-
-        document.getElementById('ambient-audio').play();
+            setTimeout(() => this.playTimeline(), 0.2 * Controller.FADE_DURATION);
     }
 
     /**
@@ -76,17 +76,29 @@ export class Controller {
      */
     bind() {
         this.view.on('timeline_update', v => this.onTimelineUpdate(v));
-        this.view.autoplayButton.addEventListener('change', e => this.onAutoPlayChange(e));
+        this.view.autoplayButton.addEventListener('change', e => this.onAudioPlayButtonClicked(e));
+        this.view.audioButton.addEventListener('change', e => this.onAudioButtonClicked(e));
     }
 
     /**
      *
      * @param evt
      */
-    onAutoPlayChange(evt) {
+    onAudioPlayButtonClicked(evt) {
         this.autoplay = !!evt.target.checked;
         if (this.autoplay)
             setTimeout(() => this.playTimeline(), Controller.TIMELINE_SPEED);
+    }
+
+    /**
+     *
+     * @param evt
+     */
+    onAudioButtonClicked(evt) {
+        if (!! evt.target.checked)
+            this.view.playAudio();
+        else
+            this.view.stopAudio();
     }
 
     /**
@@ -109,13 +121,11 @@ export class Controller {
      */
     async onTimelineUpdate(v) {
 
-        this.autoplay = false;
-        this.view.setAutoPlay(false);
         const start = Helpers.getTmsFromScale(v);
-        const duration = 900; //@TODO refactor: hardcoded
+        const duration = 1800; //@TODO refactor: hardcoded
         await this.model.setWindow(start, start + duration);
     }
 }
 
-
+Controller.FADE_DURATION = 4 * 1000;
 Controller.TIMELINE_SPEED = 0;

@@ -13,6 +13,9 @@ export class View extends EventEmitter {
         super();
 
         this.model = model;
+        this.audio = document.getElementById(View.AMBIENT_AUDIO);
+        this.audioButton = document.getElementById(View.AUDIO_BUTTON);
+        this.timeline = document.getElementById(View.TIMELINE);
         this.timelineHud = document.getElementById(View.TIMELINE_HUD);
         this.timelineHudInfo = this.timelineHud.children[0];
         this.timelineHudLeft = this.timelineHud.children[1];
@@ -22,8 +25,8 @@ export class View extends EventEmitter {
         this.setTimeline = null;
         this.stage = new Stage();
 
-        this.timelineHudLeft.innerHTML = this.dateToHtml(model.minDate);
-        this.timelineHudRight.innerHTML = this.dateToHtml(model.maxDate);
+        this.timelineHudLeft.innerHTML = this.dateToHtml(model.minDate, 2);
+        this.timelineHudRight.innerHTML = this.dateToHtml(model.maxDate, 2);
 
         this.bind();
     }
@@ -34,10 +37,19 @@ export class View extends EventEmitter {
         this.model.on('trigger', () => this.onTrigger())
     }
 
+    /**
+     *
+     * @param events
+     * @return {Promise<void>}
+     */
     async onUpdate(events) {
         await this.stage.setEvents(events);
     }
 
+    /**
+     *
+     * @return {Promise<void>}
+     */
     async onTrigger() {
         this.timelineHudInfo.innerHTML = `
         ${this.dateToHtml(this.model.start, 3)}
@@ -45,8 +57,26 @@ export class View extends EventEmitter {
         `;
     }
 
+    /**
+     *
+     * @return {Promise<void>}
+     */
     async start() {
         await this.stage.start();
+    }
+
+    /**
+     *
+     */
+    playAudio() {
+        this.audio.play();
+    }
+
+    /**
+     *
+     */
+    stopAudio() {
+        this.audio.pause();
     }
 
     /**
@@ -84,6 +114,9 @@ export class View extends EventEmitter {
     }
 }
 
+View.TIMELINE = 'timeline';
 View.TIMELINE_HUD = 'timeline-hud';
 View.TIMELINE_RANGE_ID = 'timeline-range';
 View.AUTOPLAY_BUTTON = 'timeline-autoplay';
+View.AUDIO_BUTTON = 'timeline-music';
+View.AMBIENT_AUDIO = 'ambient-audio';
