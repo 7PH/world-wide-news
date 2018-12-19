@@ -8,6 +8,7 @@ const worker = async (api, jobs) => {
     let job = jobs.shift();
     if (typeof job === "undefined")
         return;
+    console.log(job.url, jobs.length + ' remaining');
     await api.fetch(job);
     await worker(api, jobs);
     return job;
@@ -20,10 +21,10 @@ const worker = async (api, jobs) => {
     await api.init();
 
     // truncate
-    //await api.truncate();
+    await api.truncate();
 
     // fetch master
-    //await api.updateMaster();
+    await api.updateMaster(Helpers.START_DATE.getTime() / 1000, Helpers.END_DATE.getTime() / 1000);
 
     // fetch unfetched
 

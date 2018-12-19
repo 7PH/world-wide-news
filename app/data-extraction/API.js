@@ -32,13 +32,18 @@ class API {
     /**
      * Updates local representation of the master file
      *
+     * @param {number} min
+     * @param {number} max
      * @return {Promise<void>}
      */
-    async updateMaster() {
+    async updateMaster(min, max) {
         const master = await this.gdelt.fetchMaster();
-        for (let tms in master)
+        for (let tms in master) {
+            if (tms < min || tms > max)
+                continue;
             for (let type of ['export', 'mentions'])
                 await this.storage.insertInMaster(type, tms, master[tms][type]);
+        }
     }
 
     /**
