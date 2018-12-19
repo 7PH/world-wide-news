@@ -32,9 +32,6 @@ export class Stage {
         this.globe = new THREE.Group();
         this.globeRotationVelocity = 10;
         this.globeRadius = 200;
-
-        this.tick = 0;
-        this.lastUpdate = Date.now();
     }
 
     /**
@@ -54,6 +51,10 @@ export class Stage {
     }
 
     async start() {
+
+        this.tick = 0;
+        this.lastUpdate = Date.now();
+
         const WIDTH = window.innerWidth;
         const HEIGHT = window.innerHeight;
         this.renderer.setSize(WIDTH, HEIGHT);

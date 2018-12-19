@@ -24,9 +24,8 @@ export class Controller {
 
         await Preload.run();
 
-        document
-            .getElementById("page-intro")
-            .addEventListener("click", () => this.start());
+        this.bindedHandler = this.start.bind(this);
+        document.getElementById("page-intro").addEventListener("click", this.bindedHandler);
 
         this.bind();
     }
@@ -38,7 +37,13 @@ export class Controller {
      */
     async start() {
 
-        document.getElementById("page-intro").style.display = "none";
+        document.getElementById("page-intro").removeEventListener("click", this.bindedHandler);
+
+        setTimeout(() => {
+            document.getElementById('page-intro').classList.add('hidden');
+        }, 6 * 1000);
+
+        document.getElementById("page-intro").style.opacity = "0";
         document.getElementById("page-content").classList.remove("hidden");
 
         await this.view.start();
