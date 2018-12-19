@@ -52,6 +52,8 @@ html, body {
 
     #timeline-controls {
 
+        display: none;
+
         height: 10px;
         width: 100%;
         color: #fff;
@@ -86,53 +88,69 @@ html, body {
         position: relative;
 
         margin-left: 60px;
-        margin-top: 38px;
+        margin-top: 28px;
         width: calc(100% - 120px);
-        height: 24px;
-        border-radius: 12px;
-        border: 1px solid #424a88;
-        background-color: #15161b;
 
-        .timeline-cursor {
-            position: absolute;
-            top: 0;
-            width: 12px;
+        #timeline-hud {
             height: 24px;
-            border-left: 1px solid #527dcb;
-            border-right: 1px solid #527dcb;
+            color: white;
+
+            #timeline-left {
+                float: left;
+            }
+            #timeline-right {
+                float: right;
+            }
+        }
+
+        #timeline-range-container {
+
+            height: 24px;
+            border-radius: 12px;
+            border: 1px solid #424a88;
             background-color: #15161b;
-            cursor: pointer;
-        }
 
-        #timeline-first-cursor {
-            left: 10%;
-        }
+            .timeline-cursor {
+                position: absolute;
+                top: 0;
+                width: 12px;
+                height: 24px;
+                border-left: 1px solid #527dcb;
+                border-right: 1px solid #527dcb;
+                background-color: #15161b;
+                cursor: pointer;
+            }
 
-        #timeline-second-cursor {
-            left: 20%;
-        }
+            #timeline-first-cursor {
+                left: 10%;
+            }
 
-        @mixin thumb-rule() {
-            -webkit-appearance: none;
-            border: 1px solid #000000;
-            height: 24px;
-            width: 16px;
-            border-radius: 3px;
-            background: #ffffff;
-            cursor: pointer;
-        }
+            #timeline-second-cursor {
+                left: 20%;
+            }
 
-        input[type=range]::-webkit-slider-thumb {
-            @include thumb-rule();
-            margin-top: -2px;
-        }
+            @mixin thumb-rule() {
+                -webkit-appearance: none;
+                border: 1px solid #000000;
+                height: 24px;
+                width: 16px;
+                border-radius: 3px;
+                background: #ffffff;
+                cursor: pointer;
+            }
 
-        input[type=range]::-moz-range-thumb {
-            @include thumb-rule();
-        }
+            input[type=range]::-webkit-slider-thumb {
+                @include thumb-rule();
+                margin-top: -2px;
+            }
 
-        input[type=range]::-ms-thumb {
-            @include thumb-rule();
+            input[type=range]::-moz-range-thumb {
+                @include thumb-rule();
+            }
+
+            input[type=range]::-ms-thumb {
+                @include thumb-rule();
+            }
         }
     }
 }

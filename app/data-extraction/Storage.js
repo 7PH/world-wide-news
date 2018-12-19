@@ -192,9 +192,11 @@ class Storage {
             .query(`SELECT
                         m.id,
                         m.event,
+                        m.tone,
                         e.lat,
                         e.long,
-                        e.tms as event_tms
+                        e.tms as event_tms,
+                        e.goldstein as event_goldstein
                     FROM ${Storage.TABLE_MENTIONS} as m
                     INNER JOIN \`${Storage.TABLE_EXPORT}\` AS e ON e.id = m.event
                     WHERE m.tms>? AND m.tms<?
