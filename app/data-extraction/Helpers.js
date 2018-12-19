@@ -28,6 +28,26 @@ class Helpers {
         filtered.tms = GDelt.gdeltToDate(filtered.tms).getTime() / 1000;
         return filtered;
     }
+
+    /**
+     * @TODO document
+     *
+     * @param ratio
+     * @return {number}
+     */
+    static getTmsFromScale(ratio) {
+        return Helpers.START_TMS + ratio * (Helpers.END_TMS - Helpers.START_TMS);
+    }
+
+    /**
+     * @TODO document
+     *
+     * @param tms
+     * @return {number}
+     */
+    static getScaleFromTms(tms) {
+        return (tms - Helpers.START_TMS) / (Helpers.END_TMS - Helpers.START_TMS);
+    }
 }
 
 Helpers.EXPORT_KEEP_COLUMNS = [

@@ -44,7 +44,9 @@ export class Controller {
         await this.view.start();
 
         if (this.autoplay)
-            setTimeout(() => this.playTimeline(), 0);
+            setTimeout(() => this.playTimeline(), 1000);
+
+        document.getElementById('ambient-audio').play();
     }
 
     /**
@@ -53,10 +55,11 @@ export class Controller {
      */
     async playTimeline() {
 
-        const v = +this.view.timeline.value + +this.view.timeline.step;
-        await this.setTimeline(v);
-        if (this.autoplay && this.view.timeline.value < 1)
-            setTimeout(() => this.playTimeline(), 0);
+        let tms = Helpers.getTmsFromScale(+this.view.timelineRange.value);
+        const newScale = Helpers.getScaleFromTms(tms + 901);
+        await this.setTimeline(newScale);
+        if (this.autoplay && this.view.timelineRange.value < 1)
+            setTimeout(() => this.playTimeline(), 1000);
     }
 
     /**
@@ -76,8 +79,8 @@ export class Controller {
      */
     async setTimeline(v) {
         this.view.setTimeline(v);
-        const start = scale(v, Helpers.START_TMS, Helpers.END_TMS);
-        const duration = 901; //@TODO refactor: hardcoded
+        const start = Helpers.getTmsFromScale(v);
+        const duration = 900; //@TODO refactor: hardcoded
         await this.model.setWindow(start, start + duration);
     }
 
@@ -89,8 +92,8 @@ export class Controller {
     async onTimelineUpdate(v) {
 
         this.autoplay = false;
-        const start = scale(v, Helpers.START_TMS, Helpers.END_TMS);
-        const duration = 901; //@TODO refactor: hardcoded
+        const start = Helpers.getTmsFromScale(v);
+        const duration = 900; //@TODO refactor: hardcoded
         await this.model.setWindow(start, start + duration);
     }
 }

@@ -92,14 +92,20 @@ html, body {
         width: calc(100% - 120px);
 
         #timeline-hud {
-            height: 24px;
+            height: 30px;
             color: white;
+            text-align: center;
 
+            #timeline-info {
+                display: inline-block;
+            }
             #timeline-left {
                 float: left;
+                font-size: 140%;
             }
             #timeline-right {
                 float: right;
+                font-size: 140%;
             }
         }
 
@@ -130,6 +136,7 @@ html, body {
             }
 
             @mixin thumb-rule() {
+                transition: all 1s;
                 -webkit-appearance: none;
                 border: 1px solid #000000;
                 height: 24px;

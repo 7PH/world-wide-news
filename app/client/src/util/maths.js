@@ -19,16 +19,3 @@ export function lat2xyz(latitude, longitude) {
         z: Math.sin(phi) * Math.sin(theta)
     };
 }
-
-/**
- * Scale a value from [0,1] to [min, max]
- *
- * @param value
- * @param min
- * @param max
- * @return {*}
- */
-export function scale(value, min, max) {
-
-    return min + value * (max - min);
-}

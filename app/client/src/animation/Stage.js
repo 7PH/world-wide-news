@@ -6,10 +6,10 @@ export class Stage {
 
     constructor() {
 
+        this.events = [];
+
         this.renderer = new THREE.WebGLRenderer();
-        this.particleSystem = new THREE.GPUParticleSystem({
-            maxParticles: 250000
-        });
+        this.particleSystem = new THREE.GPUParticleSystem({maxParticles: 250000});
         this.particleOptions = {
             position: new THREE.Vector3(),
             positionRandomness: .3,
@@ -22,12 +22,6 @@ export class Stage {
             size: 5,
             sizeRandomness: 1
         };
-        this.particleSpawnerOptions = {
-            spawnRate: 15000,
-            horizontalSpeed: 1.5,
-            verticalSpeed: 1.33,
-            timeScale: 1
-        };
 
         this.scene = new THREE.Scene();
 
@@ -39,39 +33,24 @@ export class Stage {
         this.globeRotationVelocity = 10;
         this.globeRadius = 200;
 
-        this.dotRadius = 0.002 * this.globeRadius;
-
         this.tick = 0;
         this.lastUpdate = Date.now();
     }
 
     /**
      *
-     * @param {{lat: number, long: number}[]} points
+     * @param {{lat: number, long: number}[]} events
      * @return {Promise<void>}
      */
-    async addDots(points) {
+    async setEvents(events) {
 
-        // empty dots
-        for (let i = this.dots.children.length - 1; i >= 0; --i)
-            this.dots.remove(this.dots.children[i]);
-
-        // prepare
-        const pointGeometry = new THREE.SphereGeometry(this.dotRadius, 32, 32);
-        const material = new THREE.MeshBasicMaterial({color: 0x665588});
-        const dot = new THREE.Mesh(pointGeometry.clone(), material.clone());
-
-        // retrieve dots again
-        try {
-            for (let event of points) {
-                let instance = dot.clone();
-                const coords = lat2xyz(event.lat, event.long);
-                instance.position.x = coords.x * this.globeRadius + 1.5 * this.dotRadius;
-                instance.position.y = coords.y * this.globeRadius + 1.5 * this.dotRadius;
-                instance.position.z = coords.z * this.globeRadius + 1.5 * this.dotRadius;
-                this.dots.add(instance);
-            }
-        } catch (e) { console.error(e); }
+        this.events = events.map(event => {
+            event.position = lat2xyz(event.lat, event.long);
+            event.position.x = (event.position.x + .01) * this.globeRadius;
+            event.position.y = (event.position.y + .01) * this.globeRadius;
+            event.position.z = (event.position.z + .01) * this.globeRadius;
+            return event;
+        });
     }
 
     async start() {
@@ -149,11 +128,15 @@ export class Stage {
         this.globe.rotation.y += this.globeRotationVelocity * delta;
         this.galaxy.rotation.y += 0.004 * delta;
 
-        for (let dot of this.dots.children) {
-            this.particleOptions.position = dot.position;
+        for (let event of this.events) {
+            this.particleOptions.position = event.position;
             this.particleOptions.velocity.x = (Math.random() - .5) * 1.5;
             this.particleOptions.velocity.y = (Math.random() - .5) * 1.5;
             this.particleOptions.velocity.z = (Math.random() - .5) * 1.5;
+            if (event.tone < 0)
+                this.particleOptions.color = 0xFC030D;
+            else
+                this.particleOptions.color = 0x1EFFF9;
             this.particleSystem.spawnParticle(this.particleOptions);
         }
 
