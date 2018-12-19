@@ -65,7 +65,8 @@ class Storage {
                 \`confidence\` int(11) NOT NULL,
                 \`tone\` float NOT NULL,
                 PRIMARY KEY (\`id\`),
-                INDEX (\`tms\`)
+                INDEX (\`tms\`),
+                INDEX (\`tms\`, \`name\`)
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;`);
 
         await this.db.query(`TRUNCATE ${Storage.TABLE_MASTER}`);
@@ -184,15 +185,14 @@ class Storage {
      * @param {number} end timestamp (sec)
      * @param {number} offset
      * @param {number} n
-     * @return {Promise<any[]>}
+     * @return {Promise<{list: any[], top: any[]}>}
      */
-    getMentions(start, end, offset, n) {
-        return this
-            .db
-            .query(`SELECT
+    async getMentions(start, end, offset, n) {
+        const r1 = `SELECT
                         m.id,
                         m.event,
                         m.tone,
+                        m.name,
                         e.lat,
                         e.long,
                         e.tms as event_tms,
@@ -200,8 +200,13 @@ class Storage {
                     FROM ${Storage.TABLE_MENTIONS} as m
                     INNER JOIN \`${Storage.TABLE_EXPORT}\` AS e ON e.id = m.event
                     WHERE m.tms>? AND m.tms<?
-                    LIMIT ?, ?`,
-                [start, end, offset, n]);
+                    LIMIT ?, ?`;
+        const r2 = `select r1.name, count(*) as count from (${r1}) r1 group by r1.name having count(*) > 2 order by count(*) desc limit 10`;
+        const promises = await Promise.all([r1, r2].map(r => this.db.query(r, [start, end, offset, n])));
+        return {
+            list: promises[0],
+            top: promises[1]
+        };
     }
 
     /**

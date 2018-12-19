@@ -33,17 +33,16 @@ export class View extends EventEmitter {
 
     bind() {
         this.setTimeline = rangeControl(View.TIMELINE_RANGE_ID, v => this.emit('timeline_update', v));
-        this.model.on('update', events => this.onUpdate(events));
+        this.model.on('update', () => this.onUpdate());
         this.model.on('trigger', () => this.onTrigger())
     }
 
     /**
      *
-     * @param events
      * @return {Promise<void>}
      */
-    async onUpdate(events) {
-        await this.stage.setEvents(events);
+    async onUpdate() {
+        await this.stage.setEvents(this.model.events.list);
     }
 
     /**

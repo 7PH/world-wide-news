@@ -15,7 +15,7 @@ export class Model extends EventEmitter {
         this.maxDate = Helpers.END_DATE;
         this.start = new Date();
         this.end = this.start;
-        this.events = [];
+        this.events = {};
     }
 
     /**
