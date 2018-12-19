@@ -8,7 +8,6 @@ const worker = async (api, jobs) => {
     let job = jobs.shift();
     if (typeof job === "undefined")
         return;
-    console.log(job.url);
     await api.fetch(job);
     await worker(api, jobs);
     return job;

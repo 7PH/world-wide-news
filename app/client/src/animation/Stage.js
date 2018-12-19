@@ -30,7 +30,7 @@ export class Stage {
         this.galaxy = new THREE.Mesh(this.galaxyGeometry, this.galaxyMaterial);
 
         this.globe = new THREE.Group();
-        this.globeRotationVelocity = 10;
+        this.globeRotationVelocity = 8;
         this.globeRadius = 200;
     }
 
