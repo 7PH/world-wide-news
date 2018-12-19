@@ -13,6 +13,7 @@ export class View extends EventEmitter {
         super();
 
         this.model = model;
+        this.hud = document.getElementById(View.PAGE_HUD);
         this.audio = document.getElementById(View.AMBIENT_AUDIO);
         this.audioButton = document.getElementById(View.AUDIO_BUTTON);
         this.timeline = document.getElementById(View.TIMELINE);
@@ -43,6 +44,14 @@ export class View extends EventEmitter {
      */
     async onUpdate() {
         await this.stage.setEvents(this.model.events.list);
+        this.hud.innerHTML = '<pre>'
+            + '..top websites..' + '\n'
+            + '\n'
+            + this.model.events.top
+                .slice(0, 20)
+                .map(r => `  ${r.name} (${r.count})`)
+                .join('\n')
+            + '</pre>';
     }
 
     /**
@@ -113,6 +122,7 @@ export class View extends EventEmitter {
     }
 }
 
+View.PAGE_HUD = 'page-hud';
 View.TIMELINE = 'timeline';
 View.TIMELINE_HUD = 'timeline-hud';
 View.TIMELINE_RANGE_ID = 'timeline-range';

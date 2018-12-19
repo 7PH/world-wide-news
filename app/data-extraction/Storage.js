@@ -201,7 +201,7 @@ class Storage {
                     INNER JOIN \`${Storage.TABLE_EXPORT}\` AS e ON e.id = m.event
                     WHERE m.tms>? AND m.tms<?
                     LIMIT ?, ?`;
-        const r2 = `select r1.name, count(*) as count from (${r1}) r1 group by r1.name having count(*) > 2 order by count(*) desc limit 10`;
+        const r2 = `select r1.name, count(*) as count from (${r1}) r1 group by r1.name having count(*) > 2 order by count(*) desc limit 20`;
         const promises = await Promise.all([r1, r2].map(r => this.db.query(r, [start, end, offset, n])));
         return {
             list: promises[0],
