@@ -61,7 +61,9 @@ class GDelt {
                 continue;
 
             // match data about this line
-            const mtc = url.match(/([0-9]+)\.([a-z]+)\.csv\.zip$/i) || [];
+            const mtc = url.match(/([0-9]+)\.([a-z]+)\.csv\.zip$/i);
+            if (! mtc)
+                continue;
             const date = GDelt.gdeltToDate(mtc[1]).getTime() / 1000;
             const type = mtc[2];
 

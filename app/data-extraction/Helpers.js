@@ -14,6 +14,8 @@ class Helpers {
         Helpers.EXPORT_KEEP_COLUMNS.forEach(column =>
             filtered[column[1]] = entry[column[0]]);
         filtered.tms = GDelt.gdeltToDate(filtered.tms).getTime() / 1000;
+        if (! filtered.goldstein)
+            filtered.goldstein = 0;
         return filtered;
     }
 

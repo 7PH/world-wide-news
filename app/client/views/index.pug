@@ -1,14 +1,7 @@
 -
     var data = {
 
-        seed: Date.now(),
-
-        windows: [
-
-            {title: "1 week", value: 1},
-            {title: "2 weeks", value: 2},
-            {title: "1 month", value: 4}
-        ]
+        seed: Date.now()
     }
 
 doctype html
@@ -51,10 +44,9 @@ html
             div#animation
             div#timeline
                 div#timeline-controls
-                    each item, index in data.windows
-                        div.timeline-controls
-                            input(id=`wd-${index}`, type="radio", name="timeline-window", value=item.value)
-                            label(for=`wd-${index}`)= item.title
+                    div.timeline-controls
+                        input(id=`timeline-autoplay`, type="checkbox", name="timeline-autoplay", value='true', checked="checked")
+                        label(for=`timeline-autoplay`) AutoPlay
                 div#timeline-bloc
                     div#timeline-hud
                         div#timeline-info

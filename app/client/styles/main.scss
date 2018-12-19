@@ -58,14 +58,12 @@ body {
 }
 
 #timeline {
-    margin-top: calc(100vh - 120px);
+    margin-top: calc(100vh - 180px);
     background-color: #11111199;
 
     #timeline-controls {
 
-        display: none;
-
-        height: 10px;
+        height: 30px;
         width: 100%;
         color: #fff;
         margin-top: 20px;
@@ -75,7 +73,7 @@ body {
             display: inline-block;
         }
 
-        input[type="radio"] {
+        input[type="checkbox"] {
             display: none;
         }
 
@@ -90,7 +88,7 @@ body {
             border-radius: 2px;
         }
 
-        input[type="radio"]:checked + label {
+        input[type="checkbox"]:checked + label {
             background: #575D88;
         }
     }

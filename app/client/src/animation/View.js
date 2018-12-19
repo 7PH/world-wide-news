@@ -18,6 +18,7 @@ export class View extends EventEmitter {
         this.timelineHudLeft = this.timelineHud.children[1];
         this.timelineHudRight = this.timelineHud.children[2];
         this.timelineRange = document.getElementById(View.TIMELINE_RANGE_ID);
+        this.autoplayButton = document.getElementById(View.AUTOPLAY_BUTTON);
         this.setTimeline = null;
         this.stage = new Stage();
 
@@ -49,6 +50,14 @@ export class View extends EventEmitter {
     }
 
     /**
+     *
+     * @param {boolean} value
+     */
+    setAutoPlay(value) {
+        this.autoplayButton.checked = !!value;
+    }
+
+    /**
      * @TODO document
      * @TODO move to Helpers?
      *
@@ -77,3 +86,4 @@ export class View extends EventEmitter {
 
 View.TIMELINE_HUD = 'timeline-hud';
 View.TIMELINE_RANGE_ID = 'timeline-range';
+View.AUTOPLAY_BUTTON = 'timeline-autoplay';
