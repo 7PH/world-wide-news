@@ -1,6 +1,9 @@
 const express = require('express');
 const app = express();
 const API = require('../data-extraction/API');
+const http = require('http');
+const https = require('https');
+const Credentials = require('../data-extraction/Credentials');
 
 const PORT = 3000;
 const api = new API();
@@ -27,5 +30,12 @@ app.get('/api', async (req, res) => {
 });
 
 api.init().then(() => {
-    app.listen(PORT, () => console.log(`Example app listening on port ${PORT}!`));
+
+    if (typeof Credentials.HTTPS === "undefined") {
+        http.createServer(app).listen(PORT);
+    } else {
+        https.createServer(Credentials.HTTPS, app).listen(PORT);
+    }
+
+    console.log(`Example app listening on port ${PORT}!`)
 });
