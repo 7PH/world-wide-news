@@ -1,4 +1,4 @@
-const API = require("./API");
+const API = require("../server/API");
 const Helpers = require('./Helpers');
 
 const WORKERS = 8;
@@ -27,7 +27,6 @@ const worker = async (api, jobs) => {
     await api.updateMaster(Helpers.START_DATE.getTime() / 1000, Helpers.END_DATE.getTime() / 1000);
 
     // fetch unfetched
-
     for (let type of ['export', 'mentions']) {
         const jobs = await api.storage.getUnfetched(type, Helpers.START_DATE.getTime() / 1000, Helpers.END_DATE.getTime() / 1000);
         let workers = [];

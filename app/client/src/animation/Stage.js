@@ -9,6 +9,8 @@ export class Stage {
         this.events = [];
 
         this.renderer = new THREE.WebGLRenderer();
+        this.renderer.setSize(window.innerWidth, window.innerHeight);
+
         this.particleSystem = new THREE.GPUParticleSystem({maxParticles: 250000});
         this.particleOptions = {
             position: new THREE.Vector3(),
@@ -23,6 +25,12 @@ export class Stage {
             sizeRandomness: 1
         };
 
+        const VIEW_ANGLE = 45;
+        const ASPECT = window.innerWidth / window.innerHeight;
+        const NEAR = 0.1;
+        const FAR = 10000;
+        this.camera = new THREE.PerspectiveCamera(VIEW_ANGLE, ASPECT, NEAR, FAR);
+
         this.scene = new THREE.Scene();
 
         this.galaxyGeometry = new THREE.SphereGeometry(6000, 64, 64);
@@ -32,6 +40,8 @@ export class Stage {
         this.globe = new THREE.Group();
         this.globeRotationVelocity = 8;
         this.globeRadius = 200;
+
+        this.dots = new THREE.Group();
     }
 
     /**
@@ -55,16 +65,8 @@ export class Stage {
         this.tick = 0;
         this.lastUpdate = Date.now();
 
-        const WIDTH = window.innerWidth;
-        const HEIGHT = window.innerHeight;
-        this.renderer.setSize(WIDTH, HEIGHT);
 
         // camera
-        const VIEW_ANGLE = 45;
-        const ASPECT = WIDTH / HEIGHT;
-        const NEAR = 0.1;
-        const FAR = 10000;
-        this.camera = new THREE.PerspectiveCamera(VIEW_ANGLE, ASPECT, NEAR, FAR);
         this.camera.position.set(0, 0, - 1000);
 
         // scene
@@ -72,16 +74,8 @@ export class Stage {
         this.scene.add(this.camera);
         document.getElementById("animation").appendChild(this.renderer.domElement);
 
-        // particles
         this.globe.add(this.particleSystem);
-
-        // sphere
-        const SEGMENTS = 50;
-        const RINGS = 50;
         this.scene.add(this.globe);
-
-        // dot group
-        this.dots = new THREE.Group();
         this.globe.add(this.dots);
 
         // point on the sphere
@@ -96,7 +90,7 @@ export class Stage {
 
         loader.load("textures/earth.edited.jpg", texture => {
 
-            const sphere = new THREE.SphereGeometry(this.globeRadius, SEGMENTS, RINGS);
+            const sphere = new THREE.SphereGeometry(this.globeRadius, 50, 50);
             const material = new THREE.MeshBasicMaterial({
                 map: texture
             });
@@ -120,15 +114,20 @@ export class Stage {
         this.render();
     }
 
+    /**
+     *
+     */
     render() {
         let currUpdate = Date.now();
         const delta = (currUpdate - this.lastUpdate) * 0.001;
         this.tick += delta;
 
+        // globe rotation
         this.globeRotationVelocity += - .85 * this.globeRotationVelocity * delta;
         this.globe.rotation.y += this.globeRotationVelocity * delta;
         this.galaxy.rotation.y += 0.004 * delta;
 
+        // particles
         for (let event of this.events) {
             this.particleOptions.position = event.position;
             this.particleOptions.velocity.x = (Math.random() - .5) * 1.5;
@@ -140,9 +139,10 @@ export class Stage {
                 this.particleOptions.color = 0x1EFFF9;
             this.particleSystem.spawnParticle(this.particleOptions);
         }
-
-        this.orbitControls.update();
         this.particleSystem.update(this.tick);
+
+        // mouse control
+        this.orbitControls.update();
 
         this.renderer.render(this.scene, this.camera);
         this.lastUpdate = currUpdate;

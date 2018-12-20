@@ -1,4 +1,4 @@
-const GDelt = require('./GDelt');
+const GDelt = require('../server/GDelt');
 
 /**
  * @TODO refactor: extract method
@@ -38,7 +38,7 @@ class Helpers {
      * @return {number}
      */
     static getTmsFromScale(ratio) {
-        return Helpers.START_TMS + ratio * (Helpers.END_TMS - Helpers.START_TMS);
+        return 0.001 * (Helpers.START_DATE.getTime() + ratio * (Helpers.END_DATE.getTime() - Helpers.START_DATE.getTime()));
     }
 
     /**
@@ -48,7 +48,7 @@ class Helpers {
      * @return {number}
      */
     static getScaleFromTms(tms) {
-        return (tms - Helpers.START_TMS) / (Helpers.END_TMS - Helpers.START_TMS);
+        return (tms * 1000 - Helpers.START_DATE.getTime()) / (Helpers.END_DATE.getTime() - Helpers.START_DATE.getTime());
     }
 }
 
@@ -71,8 +71,6 @@ Helpers.MENTIONS_KEEP_COLUMNS = [
 ];
 
 Helpers.START_DATE = new Date(1543622400 * 1000);
-Helpers.START_TMS = Helpers.START_DATE.getTime() / 1000;
 Helpers.END_DATE = new Date(1545223814 * 1000);
-Helpers.END_TMS = Helpers.END_DATE.getTime() / 1000;
 
 module.exports = Helpers;

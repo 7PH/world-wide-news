@@ -1,9 +1,9 @@
 const express = require('express');
 const app = express();
-const API = require('../data-extraction/API');
+const API = require('./API');
 const http = require('http');
 const https = require('https');
-const Credentials = require('../data-extraction/Credentials');
+const Credentials = require('./Credentials');
 
 const PORT = 3000;
 const api = new API();

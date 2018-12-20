@@ -1,7 +1,7 @@
 const Crawler = require("js-crawler");
 const GDelt = require('./GDelt');
 const Storage = require('./Storage');
-const Helpers = require('./Helpers');
+const Helpers = require('../data-extraction/Helpers');
 
 
 class API {
