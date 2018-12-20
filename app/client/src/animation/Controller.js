@@ -42,6 +42,7 @@ export class Controller {
         setTimeout(() => {
             document.getElementById('page-intro').classList.add('hidden');
             this.view.timeline.classList.remove('timeline-hidden');
+            this.view.hud.classList.remove('page-hud-hidden');
         }, Controller.FADE_DURATION);
 
         document.getElementById("page-intro").style.opacity = "0";
@@ -51,7 +52,7 @@ export class Controller {
         await this.view.start();
 
         if (this.autoplay)
-            setTimeout(() => this.playTimeline(), 0.2 * Controller.FADE_DURATION);
+            setTimeout(() => this.playTimeline(), 0.1 * Controller.FADE_DURATION);
     }
 
     /**

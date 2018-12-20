@@ -50,8 +50,9 @@ export class View extends EventEmitter {
             + '\n'
             + this.model.data.topEvents
                 .slice(0, 10)
-                .map(r => ` ${r.actor_name == null ? '' : r.actor_name + ' / '}${CAMEO_CODES[r.event_code.substr(0, 3)]}`)
+                .map(r => ` ${r.actor_name == null ? '' : r.actor_name + ' / '}${CAMEO_CODES[r.event_code.substr(0, 2)]}`)
                 .join('\n')
+            + '\n'
             + '\n'
             + '\n'
             + '..top websites..' + '\n'

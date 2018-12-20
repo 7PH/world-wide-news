@@ -15,12 +15,12 @@ export class Stage {
         this.particleSystem = new THREE.GPUParticleSystem({maxParticles: 250000});
         this.particleOptions = {
             position: new THREE.Vector3(),
-            positionRandomness: .3,
+            positionRandomness: 0,
             velocity: new THREE.Vector3(),
-            velocityRandomness: .1,
+            velocityRandomness: 0,
             color: 0xaa88ff,
             colorRandomness: .2,
-            turbulence: .5,
+            turbulence: 0.2,
             lifetime: 2,
             size: 5,
             sizeRandomness: 1
@@ -129,16 +129,14 @@ export class Stage {
         // particles
         for (let event of this.events) {
             this.particleOptions.position = event.position;
-            this.particleOptions.velocity.x = (Math.random() - .5) * 1.5;
-            this.particleOptions.velocity.y = (Math.random() - .5) * 1.5;
-            this.particleOptions.velocity.z = (Math.random() - .5) * 1.5;
+            this.particleOptions.velocity.x = (Math.random() - .5) * 1.1;
+            this.particleOptions.velocity.y = (Math.random() - .5) * 1.1;
+            this.particleOptions.velocity.z = (Math.random() - .5) * 1.1;
             const sentiment = CAMEO_SENTIMENT[event.event_code.substr(0, 2)];
-            if (sentiment < 0)
+            if (sentiment <= 0)
                 this.particleOptions.color = 0xFC030D;
-            else if (sentiment > 0)
-                this.particleOptions.color = 0x00FF00;
             else
-                this.particleOptions.color = 0x1EFFF9;
+                this.particleOptions.color = 0x249CFF;
             this.particleSystem.spawnParticle(this.particleOptions);
         }
         this.particleSystem.update(this.tick);
