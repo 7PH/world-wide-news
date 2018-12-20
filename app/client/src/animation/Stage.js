@@ -83,13 +83,11 @@ export class Stage {
 
         // starfield
         loader.load("textures/starfield.png", texture => {
-
             this.galaxyMaterial.map = texture;
             this.scene.add(this.galaxy);
         });
 
         loader.load("textures/earth.edited.jpg", texture => {
-
             const sphere = new THREE.SphereGeometry(this.globeRadius, 50, 50);
             const material = new THREE.MeshBasicMaterial({
                 map: texture

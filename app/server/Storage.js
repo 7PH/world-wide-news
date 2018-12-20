@@ -196,6 +196,8 @@ class Storage {
                         m.event,
                         m.tone,
                         m.name,
+                        e.actor_name,
+                        e.event_code,
                         e.lat,
                         e.long,
                         e.tms as event_tms,
