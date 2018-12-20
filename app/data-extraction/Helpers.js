@@ -54,6 +54,8 @@ class Helpers {
 
 Helpers.EXPORT_KEEP_COLUMNS = [
     ['GlobalEventId',   'id'],
+    ['EventCode',       'event_code'],
+    ['Actor1Name',      'actor_name'],
     ['ActionGeo_Lat',   'lat'],
     ['ActionGeo_Long',  'long'],
     ['GoldsteinScale',  'goldstein'],

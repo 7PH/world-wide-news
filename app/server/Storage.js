@@ -47,6 +47,8 @@ class Storage {
         await this.db.query(`
             CREATE TABLE IF NOT EXISTS ${Storage.TABLE_EXPORT} (
                 \`id\` int(11) NOT NULL,
+                \`actor_name\` varchar(64) COLLATE utf8_bin,
+                \`event_code\` varchar(8) COLLATE utf8_bin,
                 \`lat\` float,
                 \`long\` float,
                 \`goldstein\` int(11) NOT NULL,
@@ -66,7 +68,8 @@ class Storage {
                 \`tone\` float NOT NULL,
                 PRIMARY KEY (\`id\`),
                 INDEX (\`tms\`),
-                INDEX (\`tms\`, \`name\`)
+                INDEX (\`tms\`, \`name\`),
+                UNIQUE (\`event\`, \`tms\`, \`name\`)
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;`);
 
         await this.db.query(`TRUNCATE ${Storage.TABLE_MASTER}`);
@@ -136,17 +139,17 @@ class Storage {
     /**
      * Insert an event in database
      *
-     * @param event
+     * @param {*} event
      * @return {Promise<*>}
      */
     async insertExport(event) {
         return this
             .db
             .query(`INSERT INTO ${Storage.TABLE_EXPORT}
-                    (\`id\`, \`lat\`, \`long\`, \`goldstein\`, \`num_mentions\`, \`tms\`, \`source_url\`)
-                    VALUES (?, ?, ?, ?, ?, ?, ?)
+                    (\`id\`, \`actor_name\`, \`event_code\`, \`lat\`, \`long\`, \`goldstein\`, \`num_mentions\`, \`tms\`, \`source_url\`)
+                    VALUES (?, ?, ?, ? ?, ?, ?, ?, ?)
                     ON DUPLICATE KEY UPDATE id=id`,
-                [event.id, event.lat, event.long, event.goldstein, event.num_mentions, event.tms, event.source_url]);
+                [event.id, event.actor_name, event.event_code, event.lat, event.long, event.goldstein, event.num_mentions, event.tms, event.source_url]);
     }
 
     /**
@@ -162,8 +165,8 @@ class Storage {
     /**
      * Insert an event in database
      *
-     * @param event
      * @return {Promise<*>}
+     * @param entry
      */
     async insertMention(entry) {
         try {
