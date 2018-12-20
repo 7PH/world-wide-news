@@ -1,5 +1,5 @@
 
-const CAMEO_CODES = {};
+export const CAMEO_CODES = {};
 
 `01: MAKE PUBLIC STATEMENT
 010: Make statement, not specified below

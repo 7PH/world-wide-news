@@ -1,6 +1,7 @@
 import {Stage} from "./Stage";
 import {rangeControl} from "../util/range";
 import * as EventEmitter from "events";
+import {CAMEO_CODES} from "../util/cameo"
 
 
 /**
@@ -45,10 +46,18 @@ export class View extends EventEmitter {
     async onUpdate() {
         await this.stage.setEvents(this.model.data.list);
         this.hud.innerHTML = '<pre>'
+            + '..top events..' + '\n'
+            + '\n'
+            + this.model.data.topEvents
+                .slice(0, 10)
+                .map(r => ` ${r.actor_name == null ? '' : r.actor_name + ' / '}${CAMEO_CODES[r.event_code.substr(0, 3)]}`)
+                .join('\n')
+            + '\n'
+            + '\n'
             + '..top websites..' + '\n'
             + '\n'
             + this.model.data.topMentions
-                .slice(0, 20)
+                .slice(0, 10)
                 .map(r => `  ${r.name} (${r.count})`)
                 .join('\n')
             + '</pre>';

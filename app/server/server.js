@@ -22,7 +22,9 @@ app.get('/api', async (req, res) => {
     // fetch data
     try {
 
-        res.send(JSON.stringify(await api.getMentions(start, end, 0, 1000)));
+        const d = await api.getMentions(start, end, 0, 10000);
+        d.list = d.list.map(e => ({lat: e.lat, long: e.long}));
+        res.send(JSON.stringify(d));
     } catch (e) {
 
         res.send({"error": e.toString()});
