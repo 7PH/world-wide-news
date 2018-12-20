@@ -24,8 +24,9 @@ export class APIHelper {
 
         const d = await (await fetch(APIHelper.getURL(start, end))).json();
         d.list = d.list.map(l => ({
-            lat: l[0],
-            long: l[1]
+            event_code: l[0],
+            lat: l[1],
+            long: l[2]
         }));
         return d;
     }

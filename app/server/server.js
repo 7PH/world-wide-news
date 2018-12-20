@@ -23,7 +23,7 @@ app.get('/api', async (req, res) => {
     try {
 
         const d = await api.getMentions(start, end, 0, 10000);
-        d.list = d.list.map(e => [e.lat, e.long]);
+        d.list = d.list.map(e => [e.event_code, e.lat, e.long]);
         res.send(JSON.stringify(d));
     } catch (e) {
 

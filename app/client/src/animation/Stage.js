@@ -1,5 +1,6 @@
 import * as THREE from "three";
 import {lat2xyz} from "../util/maths";
+import {CAMEO_SENTIMENT} from "../util/cameo";
 
 
 export class Stage {
@@ -131,8 +132,11 @@ export class Stage {
             this.particleOptions.velocity.x = (Math.random() - .5) * 1.5;
             this.particleOptions.velocity.y = (Math.random() - .5) * 1.5;
             this.particleOptions.velocity.z = (Math.random() - .5) * 1.5;
-            if (event.tone < 0)
+            const sentiment = CAMEO_SENTIMENT[event.event_code.substr(0, 2)];
+            if (sentiment < 0)
                 this.particleOptions.color = 0xFC030D;
+            else if (sentiment > 0)
+                this.particleOptions.color = 0x00FF00;
             else
                 this.particleOptions.color = 0x1EFFF9;
             this.particleSystem.spawnParticle(this.particleOptions);

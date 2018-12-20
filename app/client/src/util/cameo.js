@@ -1,6 +1,33 @@
 
 export const CAMEO_CODES = {};
 
+/**
+ *
+ * @type {*}
+ */
+export const CAMEO_SENTIMENT = {
+    '01': 0,
+    '02': 1,
+    '03': 1,
+    '04': 1,
+    '05': 1,
+    '06': 1,
+    '07': 1,
+    '08': 1,
+    '09': -1,
+    '10': 0,
+    '11': -1,
+    '12': -1,
+    '13': -1,
+    '14': -1,
+    '15': -1,
+    '16': -1,
+    '17': -1,
+    '18': -1,
+    '19': -1,
+    '20': -1,
+};
+
 `01: MAKE PUBLIC STATEMENT
 010: Make statement, not specified below
 011: Decline comment
