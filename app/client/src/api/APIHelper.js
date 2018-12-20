@@ -22,7 +22,12 @@ export class APIHelper {
      */
     static async fetch(start, end) {
 
-        return (await fetch(APIHelper.getURL(start, end))).json();
+        const d = await (await fetch(APIHelper.getURL(start, end))).json();
+        d.list = d.list.map(l => ({
+            lat: l[0],
+            long: l[1]
+        }));
+        return d;
     }
 }
 
