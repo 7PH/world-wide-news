@@ -15,7 +15,7 @@ export class Model extends EventEmitter {
         this.maxDate = Helpers.END_DATE;
         this.start = new Date();
         this.end = this.start;
-        this.events = {};
+        this.data = {};
     }
 
     /**
@@ -29,7 +29,7 @@ export class Model extends EventEmitter {
         this.start = new Date(start * 1000);
         this.end = new Date(end * 1000);
         this.emit('trigger');
-        this.events = await APIHelper.fetch(start, end);
-        this.emit('update', this.events);
+        this.data = await APIHelper.fetch(start, end);
+        this.emit('update', this.data);
     }
 }

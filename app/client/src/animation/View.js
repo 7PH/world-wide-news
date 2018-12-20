@@ -43,11 +43,11 @@ export class View extends EventEmitter {
      * @return {Promise<void>}
      */
     async onUpdate() {
-        await this.stage.setEvents(this.model.events.list);
+        await this.stage.setEvents(this.model.data.list);
         this.hud.innerHTML = '<pre>'
             + '..top websites..' + '\n'
             + '\n'
-            + this.model.events.top
+            + this.model.data.topMentions
                 .slice(0, 20)
                 .map(r => `  ${r.name} (${r.count})`)
                 .join('\n')

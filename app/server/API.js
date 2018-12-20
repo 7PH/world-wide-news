@@ -79,7 +79,7 @@ class API {
      * @param {number} end
      * @param {number} offset
      * @param {number} n
-     * @return {Promise<{list: any[], top: any[]}>}
+     * @return {Promise<{list: any, topMentions: any, topEvents: any}>}
      */
     async getMentions(start, end, offset, n) {
         return this.storage.getMentions(start, end, 0, n);
