@@ -147,7 +147,7 @@ class Storage {
             .db
             .query(`INSERT INTO ${Storage.TABLE_EXPORT}
                     (\`id\`, \`actor_name\`, \`event_code\`, \`lat\`, \`long\`, \`goldstein\`, \`num_mentions\`, \`tms\`, \`source_url\`)
-                    VALUES (?, ?, ?, ? ?, ?, ?, ?, ?)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
                     ON DUPLICATE KEY UPDATE id=id`,
                 [event.id, event.actor_name, event.event_code, event.lat, event.long, event.goldstein, event.num_mentions, event.tms, event.source_url]);
     }
