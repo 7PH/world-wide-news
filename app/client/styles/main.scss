@@ -36,6 +36,48 @@ body {
     height: 100vh;
 }
 
+#page-help {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 10;
+    width: 100%;
+    color: white;
+    padding: 0;
+    pointer-events: none;
+    @include monoFont();
+
+    #page-help-button {
+        margin: 0;
+        pointer-events: all;
+        text-align: right;
+        cursor: pointer;
+        width: auto;
+        float: right;
+        padding: 12px;
+    }
+
+    #page-help-content {
+        opacity: 0;
+        transition: opacity .4s;
+        width: 480px;
+        margin: 15vh auto 0;
+        background-color: #020202b5;
+        border-radius: 10px;
+        color: white;
+        font-weight: 800;
+
+        div {
+            padding: 20px;
+        }
+    }
+
+    #page-help-button:hover + #page-help-content {
+        opacity: 1;
+        pointer-events: all;
+    }
+}
+
 #page-intro {
     padding-top: 20px;
     text-align: center;
@@ -98,7 +140,7 @@ body {
 #timeline {
     transition: all 2s;
     @include monoFont();
-    margin-top: calc(100vh - 180px);
+    margin-top: calc(100vh - 124px);
     background-color: #11111199;
 
     #timeline-controls {
@@ -106,7 +148,7 @@ body {
         height: 30px;
         width: 100%;
         color: #fff;
-        margin-top: 20px;
+        margin-top: 14px;
         padding-left: 60px;
 
         .timeline-controls {
@@ -137,7 +179,7 @@ body {
         position: relative;
 
         margin-left: 60px;
-        margin-top: 28px;
+        margin-top: 10px;
         width: calc(100% - 120px);
 
         #timeline-hud {
