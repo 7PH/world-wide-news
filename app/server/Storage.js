@@ -205,7 +205,7 @@ class Storage {
                         e.goldstein as event_goldstein
                     FROM ${Storage.TABLE_MENTIONS} as m
                     INNER JOIN \`${Storage.TABLE_EXPORT}\` AS e ON e.id = m.event
-                    WHERE m.tms>? AND m.tms<?
+                    WHERE m.tms>=? AND m.tms<?
                     LIMIT ?, ?`;
         const r2 = `select r1.name, count(*) as count from (${r1}) r1 group by r1.name having count(*) > 2 order by count(*) desc limit 20`;
         const r3 = `select r1.event, count(*) as count, r1.actor_name, r1.event_code, r1.source_url from (${r1}) r1 group by r1.event having count(*) > 1 order by count(*) desc limit 20`;

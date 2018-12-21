@@ -81,6 +81,13 @@ body {
         height: auto;
         padding: 12px;
         color: white;
+
+        a {
+            color: white;
+        }
+        a:visited {
+            color: #575d88;
+        }
     }
 }
 
