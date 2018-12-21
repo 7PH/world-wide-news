@@ -138,6 +138,6 @@ export class Controller {
 }
 
 Controller.FADE_DURATION = 7 * 1000;
-Controller.TIMELINE_SPEED = 200;
+Controller.TIMELINE_SPEED = 100;
 Controller.WINDOW = 900;
 Controller.STEP = 900;

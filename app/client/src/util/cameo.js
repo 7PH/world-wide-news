@@ -6,7 +6,7 @@ export const CAMEO_CODES = {};
  * @type {*}
  */
 export const CAMEO_SENTIMENT = {
-    '01': 0,
+    '01': 1,
     '02': 1,
     '03': 1,
     '04': 1,
@@ -15,7 +15,7 @@ export const CAMEO_SENTIMENT = {
     '07': 1,
     '08': 1,
     '09': -1,
-    '10': 0,
+    '10': -1,
     '11': -1,
     '12': -1,
     '13': -1,

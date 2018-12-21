@@ -1,7 +1,7 @@
 import {Stage} from "./Stage";
 import {rangeControl} from "../util/range";
 import * as EventEmitter from "events";
-import {CAMEO_CODES} from "../util/cameo"
+import {CAMEO_CODES, CAMEO_SENTIMENT} from "../util/cameo"
 
 
 /**
@@ -50,7 +50,7 @@ export class View extends EventEmitter {
             + '\n'
             + this.model.data.topEvents
                 .slice(0, 20)
-                .map(r => `  <a href="${r.source_url}" target="_blank">${r.actor_name == null ? '' : r.actor_name + ' / '}${CAMEO_CODES[r.event_code.substr(0, 2)]}</a>`)
+                .map(r => `  <span style="color:${CAMEO_SENTIMENT[r.event_code.substr(0, 2)] <= 0 ? 'red': 'cyan'}">•</span> <a href="${r.source_url}" target="_blank">${r.actor_name == null ? '' : r.actor_name + ' / '}${CAMEO_CODES[r.event_code.substr(0, 2)]}</a>`)
                 .join('\n')
             + '\n'
             + '\n'
