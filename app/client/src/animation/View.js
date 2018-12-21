@@ -49,7 +49,7 @@ export class View extends EventEmitter {
             + '..top events..' + '\n'
             + '\n'
             + this.model.data.topEvents
-                .slice(0, 10)
+                .slice(0, 20)
                 .map(r => `  <a href="${r.source_url}" target="_blank">${r.actor_name == null ? '' : r.actor_name + ' / '}${CAMEO_CODES[r.event_code.substr(0, 2)]}</a>`)
                 .join('\n')
             + '\n'
