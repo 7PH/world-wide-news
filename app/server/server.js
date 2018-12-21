@@ -8,6 +8,12 @@ const Credentials = require('./Credentials');
 const PORT = 3000;
 const api = new API();
 
+const getData = async (start, end) => {
+    const d = await api.getMentions(start, end, 0, 10000);
+    d.list = d.list.filter(e => e.lat != null && e.long != null);
+    d.list = d.list.map(e => [e.event_code, e.lat, e.long]);
+};
+
 app.get('/api', async (req, res) => {
 
     // init
@@ -22,9 +28,7 @@ app.get('/api', async (req, res) => {
     // fetch data
     try {
 
-        const d = await api.getMentions(start, end, 0, 10000);
-        d.list = d.list.filter(e => e.lat != null && e.long != null);
-        d.list = d.list.map(e => [e.event_code, e.lat, e.long]);
+        const d = await getData(start, end);
         res.send(JSON.stringify(d));
     } catch (e) {
 

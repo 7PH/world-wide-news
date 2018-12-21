@@ -62,7 +62,7 @@ export class Controller {
     async playTimeline() {
 
         let tms = Helpers.getTmsFromScale(+this.view.timelineRange.value);
-        const newScale = Helpers.getScaleFromTms(tms + 901);
+        const newScale = Helpers.getScaleFromTms(tms + Controller.STEP);
         await this.setTimeline(newScale);
         if (this.view.timelineRange.value >= 1)
             this.view.timelineRange.value = 0;
@@ -77,6 +77,7 @@ export class Controller {
      */
     bind() {
         this.view.on('timeline_update', v => this.onTimelineUpdate(v));
+        this.view.timelineRange.addEventListener('input', e => this.onTimelineRangeInput(e.target.value));
         this.view.autoplayButton.addEventListener('change', e => this.onAudioPlayButtonClicked(e));
         this.view.audioButton.addEventListener('change', e => this.onAudioButtonClicked(e));
     }
@@ -111,7 +112,7 @@ export class Controller {
     async setTimeline(v) {
         this.view.setTimeline(v);
         const start = Helpers.getTmsFromScale(v);
-        const duration = 900; //@TODO refactor: hardcoded
+        const duration = Controller.WINDOW;
         await this.model.setWindow(start, start + duration);
     }
 
@@ -123,10 +124,19 @@ export class Controller {
     async onTimelineUpdate(v) {
 
         const start = Helpers.getTmsFromScale(v);
-        const duration = 1800; //@TODO refactor: hardcoded
+        const duration = Controller.WINDOW;
         await this.model.setWindow(start, start + duration);
+    }
+
+    async onTimelineRangeInput(v) {
+
+        const start = Helpers.getTmsFromScale(v);
+        const duration = Controller.WINDOW;
+        this.view.setWindow(new Date(start * 1000), new Date(1000 * (start + duration)));
     }
 }
 
 Controller.FADE_DURATION = 4 * 1000;
 Controller.TIMELINE_SPEED = 0;
+Controller.WINDOW = 900;
+Controller.STEP = 900;

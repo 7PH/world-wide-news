@@ -36,7 +36,7 @@ export class View extends EventEmitter {
     bind() {
         this.setTimeline = rangeControl(View.TIMELINE_RANGE_ID, v => this.emit('timeline_update', v));
         this.model.on('update', () => this.onUpdate());
-        this.model.on('trigger', () => this.onTrigger())
+        this.model.on('trigger', () => this.setWindow(this.model.start, this.model.end))
     }
 
     /**
@@ -50,7 +50,7 @@ export class View extends EventEmitter {
             + '\n'
             + this.model.data.topEvents
                 .slice(0, 10)
-                .map(r => ` ${r.actor_name == null ? '' : r.actor_name + ' / '}${CAMEO_CODES[r.event_code.substr(0, 2)]}`)
+                .map(r => `  <a href="/">abc</a> ${r.actor_name == null ? '' : r.actor_name + ' / '}${CAMEO_CODES[r.event_code.substr(0, 2)]}`)
                 .join('\n')
             + '\n'
             + '\n'
@@ -66,12 +66,13 @@ export class View extends EventEmitter {
 
     /**
      *
-     * @return {Promise<void>}
+     * @param start
+     * @param end
      */
-    async onTrigger() {
+    setWindow(start, end) {
         this.timelineHudInfo.innerHTML = `
-        ${this.dateToHtml(this.model.start, 3)}
-         - ${this.dateToHtml(this.model.end, 3)}
+        ${this.dateToHtml(start, 3)}
+         - ${this.dateToHtml(end, 3)}
         `;
     }
 
