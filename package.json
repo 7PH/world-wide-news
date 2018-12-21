@@ -54,6 +54,7 @@
   "dependencies": {
     "express": "^4.16.4",
     "js-crawler": "^0.3.21",
+    "promise-caching": "^1.1.5",
     "promise-mysql": "^3.3.1"
   }
 }

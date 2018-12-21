@@ -4,15 +4,20 @@ const API = require('./API');
 const http = require('http');
 const https = require('https');
 const Credentials = require('./Credentials');
+const PromiseCaching = require('promise-caching').PromiseCaching;
 
 const PORT = 3000;
 const api = new API();
 
-const getData = async (start, end) => {
-    const d = await api.getMentions(start, end, 0, 10000);
-    d.list = d.list.filter(e => e.lat != null && e.long != null);
-    d.list = d.list.map(e => [e.event_code, e.lat, e.long]);
-    return d;
+const cache = new PromiseCaching({ returnExpired: true });
+
+const getData = (start, end) => {
+    return cache.get('' + start + ';' + end, Infinity, async () => {
+        const d = await api.getMentions(start, end, 0, 10000);
+        d.list = d.list.filter(e => e.lat != null && e.long != null);
+        d.list = d.list.map(e => [e.event_code, e.lat, e.long]);
+        return d;
+    });
 };
 
 app.get('/api', async (req, res) => {
