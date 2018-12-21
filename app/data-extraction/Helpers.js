@@ -72,7 +72,7 @@ Helpers.MENTIONS_KEEP_COLUMNS = [
     ['MentionDocTone',      'tone'],
 ];
 
-Helpers.START_DATE = new Date(1543622400 * 1000);
+Helpers.START_DATE = new Date(1543644000 * 1000);
 Helpers.END_DATE = new Date(1545350400 * 1000);
 
 module.exports = Helpers;
