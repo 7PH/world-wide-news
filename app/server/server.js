@@ -12,7 +12,8 @@ const api = new API();
 const cache = new PromiseCaching({ returnExpired: true });
 
 const getData = (start, end) => {
-    return cache.get('' + start + ';' + end, Infinity, async () => {
+    const CACHE_DURATION = 60 * 60 * 24 * 1000;
+    return cache.get('' + start + ';' + end, CACHE_DURATION, async () => {
         const d = await api.getMentions(start, end, 0, 10000);
         d.list = d.list.filter(e => e.lat != null && e.long != null);
         d.list = d.list.map(e => [e.event_code, e.lat, e.long]);
