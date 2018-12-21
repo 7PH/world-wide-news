@@ -37,6 +37,8 @@ export class Controller {
      */
     async start() {
 
+        await this.view.start();
+
         document.getElementById("page-intro").removeEventListener("click", this.bindedHandler);
 
         setTimeout(() => {
@@ -49,7 +51,6 @@ export class Controller {
         document.getElementById("page-content").classList.remove("hidden");
 
         this.view.playAudio();
-        await this.view.start();
 
         if (this.autoplay)
             setTimeout(() => this.playTimeline(), 0.1 * Controller.FADE_DURATION);
@@ -136,7 +137,7 @@ export class Controller {
     }
 }
 
-Controller.FADE_DURATION = 4 * 1000;
+Controller.FADE_DURATION = 7 * 1000;
 Controller.TIMELINE_SPEED = 200;
 Controller.WINDOW = 900;
 Controller.STEP = 900;
