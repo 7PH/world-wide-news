@@ -17,7 +17,7 @@ const Helpers = require('./Helpers');
     for (let type of ['export', 'mentions']) {
         const jobs = await api.storage.getUnfetched(type, Helpers.START_DATE.getTime() / 1000, Helpers.END_DATE.getTime() / 1000);
         for (let job of jobs) {
-            console.log(job.url, jobs.length + ' remaining');
+            console.log(job.url);
             await api.fetch(job);
         }
     }
