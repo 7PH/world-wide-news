@@ -1,7 +1,9 @@
 -
     var CONFIG = {
 
-    seed: Date.now()
+        seed: Date.now(),
+
+        ga: 'UA-113541070-2'
     }
 head
     meta(charset="UTF-8")
@@ -14,3 +16,10 @@ head
     script(src="js/vendor/OrbitControls.js?" + CONFIG.seed)
     script(src="js/vendor/GPUParticleSystem.js?" + CONFIG.seed)
     title World Wide News
+
+    script(async, src='https://www.googletagmanager.com/gtag/js?id=' + CONFIG.ga)
+    script
+        | window.dataLayer = window.dataLayer || [];
+        | function gtag(){dataLayer.push(arguments);}
+        | gtag('js', new Date());
+        | gtag('config', '#{CONFIG.ga}');
