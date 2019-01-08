@@ -1,6 +1,6 @@
 # Data Visualization Project
 
-<img src="https://travis-ci.com/7PH/EPFL-Data-Visualization-Project.svg?token=Za94vW75EZvYRU3Un778&branch=master">
+<img src="https://travis-ci.com/7PH/world-wide-news.svg?branch=master">
 
 **Visualization of the latest news**
 
