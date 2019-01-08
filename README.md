@@ -9,8 +9,8 @@ Live demo: https://news.benjamin-raymond.pro/
 ## Install
 
 ```bash
-git clone https://github.com/7PH/EPFL-Data-Visualization-Project;
-cd EPFL-Data-Visualization-Project;
+git clone https://github.com/7PH/world-wide-news;
+cd world-wide-news;
 npm install;
 echo "module.exports = { DB_USER: '', DB_PASSWORD: '',};" > app/server/Credentials.js;
 ```
